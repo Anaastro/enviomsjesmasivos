@@ -2,114 +2,14 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import axios from "axios";
 import { Promise } from "bluebird";
-import cors = require("cors");
-import * as crypto from "crypto";
 
 admin.initializeApp();
 
-const cheerio = require("cheerio");
 const db = admin.firestore();
 const dbRealtime = admin.database();
 
 const apiUrl = functions.config().api.url;
 const waapiKey = functions.config().api.waapi.key;
-
-const allowedOrigins = [
-	"https://sistypescript.vercel.app",
-	"http://localhost:3000",
-];
-
-const corsOptions = {
-	origin: (
-		origin: string | undefined,
-		callback: (err: Error | null, allow?: boolean) => void
-	) => {
-		if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-			callback(null, true);
-		} else {
-			callback(new Error("No permitido por CORS"));
-		}
-	},
-	methods: ["GET", "POST"],
-};
-
-export const getSkNumbers = functions
-	.runWith({ timeoutSeconds: 540 })
-	.https.onRequest((req, res) => {
-		cors(corsOptions)(req, res, async () => {
-			if (req.method !== "POST") {
-				return res.status(405).json({ error: "Método no permitido" });
-			}
-
-			const { locationCountryCode, locationRegion, pageNumber, userId } =
-				req.body;
-
-			if (!locationCountryCode || !locationRegion || !pageNumber || !userId) {
-				return res.status(400).json({ error: "Faltan parámetros requeridos." });
-			}
-
-			const region = locationRegion.toLowerCase().replace(/ /g, "-");
-			const country = locationCountryCode.toLowerCase();
-
-			try {
-				const allResults: any[] = [];
-
-				await Promise.map(new Array(Number(pageNumber)), async (_, index) => {
-					const pageIndexUrl = `https://${country}.skokka.com/escorts/${region}/?p=${
-						index + 1
-					}`;
-					const currentPage = index + 1;
-					const hrefPages: string[] = [];
-
-					const dataFetched = await fetch(pageIndexUrl);
-					const dataHtml = await dataFetched.text();
-
-					const $ = cheerio.load(dataHtml);
-					const listingItems = $(".item-content");
-
-					listingItems.each((_: any, el: any) => {
-						const href = $(el).find("a").attr("href");
-						if (href) hrefPages.push(href);
-					});
-
-					await Promise.each(hrefPages, async (href, idx) => {
-						const pageFetched = await fetch(href);
-						const pageHtml = await pageFetched.text();
-						const $ = cheerio.load(pageHtml);
-						const whatsAppButton = $("whatsapp-button").attr("button-href");
-						let phone = extractPhone(whatsAppButton);
-
-						const pushObject = {
-							id: crypto.randomUUID(),
-							phone: `+${phone}`,
-							name: `Red ${locationRegion} ${currentPage} ${idx + 1}`,
-						};
-
-						allResults.push(pushObject);
-					});
-				});
-
-				await Promise.each(allResults, async (el) => {
-					await admin
-						.firestore()
-						.collection("contacts")
-						.doc(userId)
-						.collection("phones")
-						.add({
-							...el,
-							createdAt: admin.firestore.FieldValue.serverTimestamp(),
-						});
-				});
-
-				return res.status(200).json({ allResults });
-			} catch (error) {
-				console.error("Error in Cloud Function:", error);
-				return res
-					.status(500)
-					.json({ success: false, error: "Failed to process request" });
-			}
-		});
-	});
 
 export const processMessagesQueue = functions
 	.runWith({ timeoutSeconds: 300, memory: "1GB" })
