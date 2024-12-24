@@ -9,7 +9,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			waapiApiKey
 		)) as any;
 
-		res.status(200).json({ instances });
+		const instancesFormatted = instances.filter((instance: any) => {
+			return instance.id != process.env.EXCLUDE_INSTANCES;
+		});
+
+		res.status(200).json({ instances: instancesFormatted });
 	} catch (error: any) {
 		console.error("Error al enviar el mensaje de WhatsApp:", error.message);
 		res.status(500).json({ success: false, error: error.message });
