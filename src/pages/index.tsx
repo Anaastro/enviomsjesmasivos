@@ -85,7 +85,7 @@ const Home: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="bg-white text-black font-bold py-3 px-6 rounded-lg shadow-lg"
+            className="bg-white text-black font-bold py-3 px-6 rounded-lg shadow-lg z-30"
             onClick={() => setIsConfigOpen(true)}
           >
             Haz clic
