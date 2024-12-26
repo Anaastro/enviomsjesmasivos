@@ -1,6 +1,5 @@
 import Loader from "../Loader";
 import { usePhoneList } from "@/lib/hooks/usePhoneList";
-import PhoneSkkoka from "./PhoneSkokka";
 import { useContext, useEffect, useState } from "react";
 import { SelectedPhonesContext } from "@/lib/context/SelectedPhonesContext";
 
@@ -72,12 +71,6 @@ const PhonesList: React.FC<PhonesListProps> = ({
 			<h3 className="text-lg font-semibold mb-4 text-blue-600">
 				Listado de Teléfonos
 			</h3>
-
-			<PhoneSkkoka
-				handleSubmit={handleSubmit}
-				formLocation={formLocation}
-				setFormLocation={setFormLocation}
-			/>
 
 			<p>
 				Ultimo mensaje enviado:{" "}
