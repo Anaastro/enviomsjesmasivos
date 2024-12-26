@@ -9,13 +9,13 @@ export default function ListPhoneNumbers() {
 	};
 
 	return (
-		<div className="text-black border p-6 rounded-lg flex flex-col gap-4 bg-white w-11/12 md:w-1/3">
+		<div className="text-black border p-6 rounded-lg flex flex-col gap-4 bg-white w-11/12 md:w-1/3 z-40">
 			<p className="text-lg font-bold">Instancias</p>
 
 			<p>Seleccione una instancia para continuar: </p>
 
 			{loading && (
-				<div className="flex justify-center items-center px-10 py-20">
+				<div className="flex justify-center items-center px-10 py-20 z-30">
 					<DotLoader />
 				</div>
 			)}
