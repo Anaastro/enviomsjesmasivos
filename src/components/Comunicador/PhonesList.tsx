@@ -65,10 +65,10 @@ const PhonesList: React.FC<PhonesListProps> = ({
 	};
 
 	return (
-		<div className="border p-6 bg-white shadow-xl rounded-lg">
+		<div className="border p-6 bg-white shadow-xl rounded-lg z-30">
 			{loading && <Loader content="Obteniendo contactos de Skokka" />}
 
-			<h3 className="text-lg font-semibold mb-4 text-blue-600">
+			<h3 className="text-lg font-semibold mb-4 text-blue-600 z-50">
 				Listado de Teléfonos
 			</h3>
 
