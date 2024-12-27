@@ -9,10 +9,10 @@ export default function ListPhoneNumbers() {
 	};
 
 	return (
-		<div className="text-black border p-6 rounded-lg flex flex-col gap-4 bg-white w-11/12 md:w-1/3 z-40">
-			<p className="text-lg font-bold">Instancias</p>
+		<div className="text-white font-extralight border p-6 rounded-lg flex flex-col gap-4 bg-[#071830] w-11/12 md:w-1/3 z-40 shadow-2xl shadow-[#9CFFCB] mb-20">
+			<p className="text-xl font-extralight text-center">Instancias</p>
 
-			<p>Seleccione una instancia para continuar: </p>
+			<p>Seleccione tu instancia para continuar: </p>
 
 			{loading && (
 				<div className="flex justify-center items-center px-10 py-20 z-30">
@@ -23,7 +23,7 @@ export default function ListPhoneNumbers() {
 			{instanceNumbers.map(({ instanceId, phoneNumber, message, name }) => (
 				<button
 					onClick={() => handleSetInstance(instanceId)}
-					className="border w-full rounded-lg p-2 hover:bg-gray-200 transition-all duration-200"
+					className="border w-full rounded-lg p-2 hover:bg-[#34006A] transition-all duration-200 font-extralight text-[#9CFFCB]"
 					key={instanceId}
 				>
 					<p>Instancia: {instanceId}</p>

@@ -33,18 +33,18 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 	} = useAuth({ onSignIn, onClose });
 
 	return (
-		<div>
+		<div className="bg-purple-700">
 			{loading && (
 				<Loader
 					content={isRegister ? `Registrando usuario` : "Iniciando sesion"}
 				/>
 			)}
 
-			<h2 className="text-xl font-bold mb-4">
+			<h2 className="text-xl font-extralight text-white mb-4 text-center ">
 				{isRegister ? "Registrar" : "Iniciar Sesión"}
 			</h2>
 			<div className="mb-4">
-				<label className="block mb-1 font-bold">Correo Electrónico:</label>
+				<label className="block mb-1 font-extralight text-white">Correo Electrónico:</label>
 				<input
 					type="email"
 					className="border rounded-md p-2 w-full"
@@ -53,7 +53,7 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 				/>
 			</div>
 			<div className="mb-4">
-				<label className="block mb-1 font-bold">Contraseña:</label>
+				<label className="block mb-1 font-extralight text-white">Contraseña:</label>
 				<div className="flex">
 					<input
 						type={showPassword ? "text" : "password"}
@@ -63,7 +63,7 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 					/>
 					<button
 						type="button"
-						className="text-gray-600 ml-4"
+						className="font-extralight text-white ml-4"
 						onClick={() => setShowPassword(!showPassword)}
 					>
 						{showPassword ? "Ocultar" : "Mostrar"}
@@ -72,8 +72,8 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 			</div>
 
 			{isRegister && (
-				<div className="mb-4">
-					<label className="block mb-1 font-bold">Codigo de registro:</label>
+				<div className="mb-4 text-white">
+					<label className="block mb-1 font-extralight text-white">Codigo de registro:</label>
 					<input
 						type="text"
 						name="code"
@@ -97,7 +97,7 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 			)}
 
 			<button
-				className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mb-4"
+				className="bg-[#9CFFCB] text-[#071830] px-4 py-2 rounded-md hover:bg-blue-600 mb-4"
 				onClick={handleAuth}
 			>
 				{isRegister ? "Registrar" : "Iniciar Sesión"}
@@ -109,11 +109,12 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 				onOpenChange={onOpenChange}
 				setIsRegister={setIsRegister}
 				title={dataModal.title}
+
 			/>
 
 			{!isRegister && (
 				<button
-					className="text-blue-500 hover:underline mb-4"
+					className="text-[#9CFFCB] hover:underline mb-4"
 					onClick={handlePasswordReset}
 				>
 					¿Olvidaste tu contraseña?
@@ -121,7 +122,7 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 			)}
 
 			<button
-				className="text-blue-500 hover:underline"
+				className="text-white hover:underline"
 				onClick={() => setIsRegister(!isRegister)}
 			>
 				{isRegister

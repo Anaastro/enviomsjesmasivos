@@ -52,7 +52,7 @@ export default function ModalRegister({
 				<ModalContent>
 					{(onClose) => (
 						<>
-							<ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+							<ModalHeader className="flex flex-col gap-1 ">{title}</ModalHeader>
 							<ModalBody>{content}</ModalBody>
 							<ModalFooter>
 								<Button color="danger" variant="light" onPress={onClose}>

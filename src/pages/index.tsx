@@ -64,19 +64,19 @@ const Home: React.FC = () => {
 		{/* <ParticlesBackground/> */}
       <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-6 sm:space-y-0">
         <img
-          src="/images/icons-12934.gif" // Primera imagen
+          src="/images/icons-12934.gif" 
           alt="Imagen 1"
           className="w-3/4 sm:w-1/3 h-auto"
         />
         <img
-          src="/images/whatsapp-2223.gif" // Segunda imagen
+          src="/images/whatsapp-2223.gif" 
           alt="Imagen 2"
           className="w-3/4 sm:w-1/3 h-auto"
         />
         <img
-          src="/images/astro-logo-blanco.png" // Logo de Astro
+          src="/images/astro-logo-blanco.png" 
           alt="Logo de Astro"
-          className="w-60 h-60 animate-pulse" // Animación y redondeado
+          className="w-60 h-60 animate-pulse"
         />
       </div>
 
@@ -85,14 +85,12 @@ const Home: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="bg-white text-black font-bold py-3 px-6 rounded-lg shadow-lg z-30"
+            className="bg-purple-700 text-white font-extralight py-3 px-6 rounded-lg shadow-lg z-30"
             onClick={() => setIsConfigOpen(true)}
           >
             Haz clic
           </motion.button>
-          <p className="mt-40 text-xl font-bold text-white">
-            Bienvenidos a CRM Astro
-          </p>
+         
         </>
       )}
       {isConfigOpen && !userLoggedIn && (
