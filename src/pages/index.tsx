@@ -9,6 +9,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { app, database } from "@/lib/utils/firebase";
 import { UserContext } from "@/lib/context/UserContext";
 import ListPhoneNumbers from "@/components/Login/ListPhoneNumbers";
+import ParticlesBackgroud from "@/components/ParticlesBackground";
 
 
 interface User {
@@ -63,7 +64,7 @@ const Home: React.FC = () => {
 	<>
 	
     <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
-	
+	<ParticlesBackgroud/>
       <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-6 sm:space-y-0">
         <img
           src="/images/icons-12934.gif" 
