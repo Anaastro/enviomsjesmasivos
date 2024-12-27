@@ -30,14 +30,14 @@ const UnifiedSender: React.FC<UnifiedSenderProps> = ({
 	return (
 		<div
 			key={formKey}
-			className="border p-2 md:p-4 bg-white shadow-xl rounded-lg"
+			className="border-5 p-2 md:p-4 bg-transparet shadow-xl rounded-2xl border-blue-700 "
 		>
-			<h3 className="text-lg font-semibold mb-4 text-purple-600">
-				Enviar Mensaje/Media
+			<h3 className="text-xl font-extralight mb-4 text-white text-center">
+				Crear mensaje
 			</h3>
 			{!mediaPreview && (
-				<div className="w-full border-dashed p-10 border-2 mb-4 flex justify-center items-center">
-					Selecciona un archivo de imagen o audio:
+				<div className="w-full border-dashed border-blue-700 p-10 border-2 mb-4 flex justify-center items-center text-white font-extralight">
+					Selecciona una imagen o audio:
 				</div>
 			)}
 

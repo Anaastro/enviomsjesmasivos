@@ -40,7 +40,7 @@ function AutoResizeTextarea({ message, setMessage }: AutoResizeTextareaProps) {
 				padding: "12px",
 			}}
 			onFocus={(e) => (e.currentTarget.style.border = "1px solid lightgray")}
-			onBlur={(e) => (e.currentTarget.style.border = "1px solid transparent")}
+			onBlur={(e) => (e.currentTarget.style.border = "1px solid black")}
 			placeholder="Escribe algo aquí..."
 		/>
 	);

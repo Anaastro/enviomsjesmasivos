@@ -81,17 +81,17 @@ export const MessagesSent = () => {
 	}, [loadMoreLogs]);
 
 	return (
-		<div className="bg-white text-black p-4 rounded-lg h-[50vh] overflow-y-auto">
-			<p className="text-black text-xl mb-2 text-center">Mensajes Enviados</p>
+		<div className=" bg-transparent text-black p-4 rounded-2xl h-[50vh] overflow-y-auto border-5 border-purple-700">
+			<p className=" text-[#efefef] font-extralight text-xl mb-2 text-center">Mensajes Enviados</p>
 
-			<div className="bg-gray-100 h-[85%] overflow-y-auto px-4 py-2 rounded-lg">
+			<div className=" bg-[#9CFFCB] h-[85%] overflow-y-auto px-4 py-2 rounded-lg">
 				{loading ? (
 					<div className="flex justify-center items-center w-full h-full">
 						<DotLoader />
 					</div>
 				) : (
 					data.map((log, index) => (
-						<div key={log.timestamp} className="border-b-1 border-black p-2">
+						<div key={log.timestamp} className="border-b-1 border-black p-2 text-black font-extralight">
 							<p>
 								Enviado por {log.sentBy} a {log.phoneNumber}
 							</p>

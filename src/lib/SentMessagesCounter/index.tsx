@@ -150,20 +150,20 @@ export default function SentMessagesCounter() {
 	}, [fetchCounterMessages]);
 
 	return (
-		<div className="bg-white p-4 rounded-lg">
+		<div className="bg-transparent p-4 rounded-2xl border-5 border-blue-700">
 			<div className="p-4 [&>*]:p-2 [&>*]:bg-gray-100 flex flex-col gap-2 [&>*]:rounded-lg ">
 				<div className="flex justify-between items-center">
-					<p>Mensajes enviados hoy:</p>
+					<p className="text-black font-extralight">Mensajes enviados hoy:</p>
 					<p>{counterMessages.today}</p>
 				</div>
 
 				<div className="flex justify-between items-center">
-					<p>Mensajes enviados esta semana:</p>
+					<p className="text-black font-extralight">Mensajes enviados esta semana:</p>
 					<p>{counterMessages.week}</p>
 				</div>
 
 				<div className="flex justify-between items-center">
-					<p>Mensajes enviados este mes:</p>
+					<p className="text-black font-extralight">Mensajes enviados este mes:</p>
 					<p>{counterMessages.month}</p>
 				</div>
 			</div>

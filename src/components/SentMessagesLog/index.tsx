@@ -13,8 +13,8 @@ interface SentMessagesLogProps {
 
 const SentMessagesLog: React.FC<SentMessagesLogProps> = ({ sentMessages, onSearch, searchQuery }) => {
   return (
-    <div className="border p-6 bg-white shadow-xl rounded-lg">
-      <h3 className="text-lg font-semibold mb-4 text-blue-600">Mensajes Enviados</h3>
+    <div className="border p-6 bg-[#9CFFCB] shadow-xl rounded-lg">
+      <h3 className="text-xl font-extralight mb-4 text-[#071830]">Mensajes Enviados</h3>
       <input
         type="text"
         value={searchQuery}

@@ -129,11 +129,11 @@ const Comunicador = ({ name, rol, signOut }: Props) => {
 				</div>
 				<div className="space-y-6 relative">
 					<UnifiedSender phones={selectedPhones} handleSend={handleSend} />
-					<RangeSelector
+					{/* <RangeSelector
 						range={range}
 						handleRangeChange={handleRangeChange}
 						phones={phones}
-					/>
+					/> */}
 
 					<IndexSelector
 						phones={phones}
