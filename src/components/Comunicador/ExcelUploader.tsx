@@ -40,7 +40,7 @@ const ExcelUploader: React.FC<ExcelUploaderProps> = ({ setPhones, setLog }) => {
 	};
 
 	return (
-		<div className="border-5 border-purple-700 p-4 bg-transparent shadow rounded-2xl">
+		<div className="border-5 border-purple-700 p-4 bg-transparent shadow rounded-2xl z">
 			{loading && <Loader content="Procesando archivo, un momento por favor" />}
 
 			<h3 className="text-xl mb-4 text-[#efefef] text-center font-extralight">
@@ -53,7 +53,7 @@ const ExcelUploader: React.FC<ExcelUploaderProps> = ({ setPhones, setLog }) => {
 						className="h-8 w-8 text-purple-300 cursor-pointer font-extralight"
 						onClick={() => document.querySelector<HTMLInputElement>("input[type='file']")?.click()}
 					/>
-					<h4 className="text-lg text-purple-400 font-extralight">Seleccionar Archivos</h4>
+					<h4 className="text-lg text-purple-400 font-extralight ">Seleccionar Archivos</h4>
 				</div>
 				
 				<input

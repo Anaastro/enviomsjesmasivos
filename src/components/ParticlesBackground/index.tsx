@@ -11,7 +11,6 @@ const generateSpaceLayer = (size: string, selector: string, totalStars: number, 
     layer.push(`${x}vw ${y}vh 0 ${color}, ${x}vw ${y + 100}vh 0 ${color}`);
   }
 
-  // Realizamos un type assertion para asegurar que container es un HTMLElement
   const container = document.querySelector(selector);
   if (container instanceof HTMLElement) {
     container.style.setProperty("--size", size);

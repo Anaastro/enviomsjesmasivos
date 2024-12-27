@@ -60,8 +60,10 @@ const Home: React.FC = () => {
   };
 
   return (
+	<>
+	
     <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
-		{/* <ParticlesBackground/> */}
+	
       <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-6 sm:space-y-0">
         <img
           src="/images/icons-12934.gif" 
@@ -111,6 +113,7 @@ const Home: React.FC = () => {
         </>
       )}
     </div>
+	</>
   );
 };
 
