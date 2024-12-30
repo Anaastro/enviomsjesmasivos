@@ -110,7 +110,7 @@ const Comunicador = ({ name, rol, signOut }: Props) => {
 
 			<NavbarCrm name={name} rol={rol} signOut={signOut} />
 
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 md:p-8 bg-black min-h-screen ">
+			<div className="hidden md:grid md:grid-cols-3 gap-6 p-4 md:p-8 bg-black min-h-screen ">
 				<div className="space-y-6">
 					<ExcelUploader setPhones={setPhones} setLog={setLog} />
 					<PhonesList
@@ -148,6 +148,37 @@ const Comunicador = ({ name, rol, signOut }: Props) => {
 				</div>
 
 				<div className="flex flex-col gap-4">
+					<Chats />
+					<InstanceStatus />
+				</div>
+			</div>
+			<div className="grid grid-cols-1 md:hidden gap-6 p-4 md:p-8 bg-black min-h-screen ">
+				<div className="space-y-6">
+					<ExcelUploader setPhones={setPhones} setLog={setLog} />
+					<PhonesList
+						phones={phones.slice(0, range)}
+						onPhoneSelect={handlePhoneSelect}
+						selectedPhones={selectedPhones}
+						colorMap={colorMap}
+					/>
+					<ActionButtons openModal={openModal} handleDelete={handleDelete} />
+					<IndexSelector
+						phones={phones}
+						startIndex={startIndex}
+						handleStartIndexChange={handleStartIndexChange}
+						endIndex={endIndex}
+						handleEndIndexChange={handleEndIndexChange}
+						handleSelectRange={handleSelectRange}
+					/>
+					<UnifiedSender phones={selectedPhones} handleSend={handleSend} />
+
+					{showModal && (
+						<ModalContact setPhones={setPhones} setShowModal={closeModal} />
+					)}
+
+					<MessagesSent />
+
+					<SentMessagesCounter />
 					<Chats />
 					<InstanceStatus />
 				</div>

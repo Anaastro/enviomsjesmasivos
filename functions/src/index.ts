@@ -1,4 +1,4 @@
-import * as functions from "firebase-functions";
+import * as functions from "firebase-functions/v1";
 import * as admin from "firebase-admin";
 import axios from "axios";
 import { Promise } from "bluebird";
@@ -27,6 +27,8 @@ async function processBatchMessages(
 	snap: FirebaseFirestore.DocumentSnapshot,
 	context: functions.EventContext
 ) {
+	console.log(apiUrl);
+	console.log(waapiKey);
 	const messageQueueData = snap.data();
 	if (!messageQueueData) return;
 
@@ -154,23 +156,27 @@ async function sendMessageToAPI(
 ): Promise<void> {
 	const chatId = `${phoneNumber.replace("+", "")}@c.us`;
 
-	if (imageUrl) {
-		const imageBase64 = await convertImageToBase64(imageUrl);
-		await sendWaapiWaMediaMessage({
-			waapiApiKey: waapiKey,
-			instanceId,
-			phoneNumber: chatId,
-			mediaCaption: message || "",
-			mediaName: "imagen.jpg",
-			mediaBase64: imageBase64,
-		});
-	} else {
-		await sendWaapiWaMessage({
-			waapiApiKey: waapiKey,
-			instanceId,
-			message,
-			phoneNumber: chatId,
-		});
+	try {
+		if (imageUrl) {
+			const imageBase64 = await convertImageToBase64(imageUrl);
+			await sendWaapiWaMediaMessage({
+				waapiApiKey: waapiKey,
+				instanceId,
+				phoneNumber: chatId,
+				mediaCaption: message || "",
+				mediaName: "imagen.jpg",
+				mediaBase64: imageBase64,
+			});
+		} else {
+			await sendWaapiWaMessage({
+				waapiApiKey: waapiKey,
+				instanceId,
+				message,
+				phoneNumber: chatId,
+			});
+		}
+	} catch (error: any) {
+		throw new Error(error.message);
 	}
 }
 
@@ -250,6 +256,7 @@ async function updateMessageCounters(
 	userId: string,
 	messageId: string
 ) {
+	console.log(instanceId, userId, messageId);
 	const countersRef = dbRealtime.ref(
 		`messageCounters/${instanceId}/${userId}/${messageId}`
 	);

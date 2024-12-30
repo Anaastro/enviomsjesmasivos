@@ -32,6 +32,7 @@ export default function LoaderMessages({
 
 	useEffect(() => {
 		if (!instanceId || !userId || !messageId) return;
+		console.log(instanceId, userId, messageId);
 
 		const dataRef = ref(
 			databaseRealtime,
@@ -40,6 +41,7 @@ export default function LoaderMessages({
 
 		const unsubscribe = onValue(dataRef, (snapshot) => {
 			const newData = snapshot.val();
+			console.log("newData", newData);
 			setData(newData);
 		});
 
@@ -47,9 +49,12 @@ export default function LoaderMessages({
 	}, [instanceId, userId, messageId]);
 
 	useEffect(() => {
+		console.log(data);
+	}, [data]);
+
+	useEffect(() => {
 		const updateFirestore = async () => {
 			if (data?.totalMessages === totalMessages && !hasUpdated.current) {
-				// Evitar múltiples ejecuciones
 				hasUpdated.current = true;
 
 				await setDoc(
@@ -66,7 +71,6 @@ export default function LoaderMessages({
 
 				setCompletionMessage("Mensajes enviados correctamente");
 
-				// Esperar 3 segundos antes de cambiar el estado
 				await new Promise((resolve) => setTimeout(resolve, 3000));
 				setIsSending(false);
 				setCompletionMessage(null);
@@ -86,9 +90,15 @@ export default function LoaderMessages({
 			)}
 			{!completionMessage && (
 				<>
-					<p className="text-white mt-5">{`Enviando mensajes... ${data?.totalMessages || 0}/${totalMessages}`}</p>
-					<p className="text-white mt-5">{`Mensajes Enviados ${data?.sentMessages || 0}`}</p>
-					<p className="text-white mt-5">{`Mensajes Fallidos ${data?.failedMessages || 0}`}</p>
+					<p className="text-white mt-5">{`Enviando mensajes... ${
+						data?.totalMessages || 0
+					}/${totalMessages}`}</p>
+					<p className="text-white mt-5">{`Mensajes Enviados ${
+						data?.sentMessages || 0
+					}`}</p>
+					<p className="text-white mt-5">{`Mensajes Fallidos ${
+						data?.failedMessages || 0
+					}`}</p>
 				</>
 			)}
 		</div>
