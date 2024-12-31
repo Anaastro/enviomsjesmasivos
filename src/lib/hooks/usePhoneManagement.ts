@@ -29,7 +29,7 @@ export const usePhoneManagement = () => {
 						id: data.id,
 						name: data.name,
 						phone: data.phone,
-						mensajeEnviado: data.mensajeEnviado || false,
+						mensajeEnviado: data.isSending || false,
 					});
 				});
 

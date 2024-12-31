@@ -27,12 +27,11 @@ async function processBatchMessages(
 	snap: FirebaseFirestore.DocumentSnapshot,
 	context: functions.EventContext
 ) {
-	console.log(apiUrl);
-	console.log(waapiKey);
 	const messageQueueData = snap.data();
 	if (!messageQueueData) return;
 
-	const { lastProcessedPhoneIndex, phoneNumbers, sentBy } = messageQueueData;
+	const { lastProcessedPhoneIndex, phoneNumbers, sentBy, uid } =
+		messageQueueData;
 	const BATCH_SIZE = 15;
 	const messageData = await getMessageData(messageQueueData.messageId);
 	if (!messageData) return;
@@ -44,21 +43,24 @@ async function processBatchMessages(
 	);
 
 	for (let i = startBatchIndex; i < endBatchIndex; i++) {
-		const phoneNumber = phoneNumbers[i];
+		const phoneData = phoneNumbers[i];
+		const { phone, id } = phoneData;
 		await delay(5000);
 
 		try {
 			await sendMessageToAPI(
-				phoneNumber,
+				phone,
 				messageData.message,
 				messageQueueData.instanceId,
 				messageData.imageUrl
 			);
 			await createMessageSentLog(
 				messageQueueData.messageId,
-				phoneNumber,
+				phone,
 				"sent",
-				sentBy
+				sentBy,
+				uid,
+				id
 			);
 			await updateMessageCounters(
 				"sent",
@@ -66,14 +68,16 @@ async function processBatchMessages(
 				messageData.userId,
 				messageQueueData.messageId
 			);
-			console.log("Mensaje enviado a:", phoneNumber);
+			console.log("Mensaje enviado a:", phone);
 		} catch (error: any) {
 			console.error("Error enviando el mensaje:", error);
 			await createMessageSentLog(
 				messageQueueData.messageId,
-				phoneNumber,
+				phone,
 				"failed",
 				sentBy,
+				uid,
+				id,
 				error.message
 			);
 			await updateMessageCounters(
@@ -124,11 +128,22 @@ async function createMessageSentLog(
 	phoneNumber: string,
 	status: string,
 	sentBy: string,
+	uid: string,
+	id: string,
 	error?: string
 ) {
 	const messageRef = dbRealtime.ref(
 		`messagesSent/${sentBy.replace(" ", "")}/${messageId}`
 	);
+
+	console.log({
+		uid,
+		id,
+	});
+
+	await db.doc(`contacts/${uid}/phones/${id}`).update({
+		isSending: status === "sent" ? true : false,
+	});
 
 	if (!(await messageRef.once("value")).exists()) {
 		await messageRef.set({

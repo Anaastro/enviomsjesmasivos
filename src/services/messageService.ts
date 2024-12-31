@@ -35,10 +35,11 @@ export async function uploadMessageWithImage(
 }
 
 export async function addMessageToQueue(
-	phoneNumbers: string[],
+	phoneNumbers: { phone: string; id: string }[],
 	messageId: string,
 	instanceId: string,
-	sentBy: string
+	sentBy: string,
+	uid: string
 ) {
 	const messageQueueRef = collection(database, "messageQueue");
 
@@ -52,6 +53,7 @@ export async function addMessageToQueue(
 			error: null,
 			instanceId: instanceId,
 			sentBy,
+			uid,
 		});
 
 		return true;

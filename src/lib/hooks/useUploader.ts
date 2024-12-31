@@ -72,7 +72,10 @@ export const useUploader = ({ setPhones }: { setPhones: any }) => {
 							const phoneSnapshot = await getDocs(phoneQuery);
 
 							if (phoneSnapshot.empty) {
-								await addDoc(contactsRef, phone);
+								await addDoc(contactsRef, {
+									...phone,
+									isSending: false,
+								});
 							} else {
 								const doc = phoneSnapshot.docs[0];
 								const docData = doc.data();

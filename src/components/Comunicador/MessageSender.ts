@@ -18,6 +18,7 @@ import {
 } from "@/services/messageService";
 import { clientService } from "@/services/clientService";
 import { SelectedPhonesContext } from "@/lib/context/SelectedPhonesContext";
+import { all } from "bluebird";
 
 interface SentMessage {
 	phone: string;
@@ -77,11 +78,11 @@ export const useMessageSender = ({
 						);
 
 						const querySnapshot = await getDocs(q);
-						const phoneNumbers: string[] = [];
+						const phoneNumbers: { phone: string; id: string }[] = [];
 
 						for (const docSnap of querySnapshot.docs) {
 							const { phone } = docSnap.data();
-							phoneNumbers.push(phone);
+							phoneNumbers.push({ phone, id: docSnap.id });
 						}
 
 						return phoneNumbers;
@@ -90,11 +91,13 @@ export const useMessageSender = ({
 
 				const allUpdatedPhones = getPhones.flat();
 				setTotalMessages(allUpdatedPhones.length);
+
 				const isSave = await addMessageToQueue(
 					allUpdatedPhones,
 					messageId,
 					instanceId,
-					formattedNumber
+					formattedNumber,
+					auth.currentUser!.uid
 				);
 
 				await setDoc(
