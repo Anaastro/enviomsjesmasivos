@@ -44,7 +44,9 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 				{isRegister ? "Registrar" : "Iniciar Sesión"}
 			</h2>
 			<div className="mb-4">
-				<label className="block mb-1 font-extralight text-white">Correo Electrónico:</label>
+				<label className="block mb-1 font-extralight text-white">
+					Correo Electrónico:
+				</label>
 				<input
 					type="email"
 					className="border rounded-md p-2 w-full"
@@ -53,7 +55,9 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 				/>
 			</div>
 			<div className="mb-4">
-				<label className="block mb-1 font-extralight text-white">Contraseña:</label>
+				<label className="block mb-1 font-extralight text-white">
+					Contraseña:
+				</label>
 				<div className="flex">
 					<input
 						type={showPassword ? "text" : "password"}
@@ -72,13 +76,15 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 			</div>
 
 			{isRegister && (
-				<div className="mb-4 text-white">
-					<label className="block mb-1 font-extralight text-white">Codigo de registro:</label>
+				<div className="mb-4 text-black">
+					<label className="block mb-1 font-extralight text-white">
+						Codigo de registro:
+					</label>
 					<input
 						type="text"
 						name="code"
 						value={code}
-						className="border rounded-md p-2 w-full "
+						className="border rounded-md p-2 w-full text-black "
 						onChange={handleChangeCode}
 					/>
 				</div>
@@ -109,7 +115,6 @@ const RegistrarIniciarSesion: React.FC<Props> = ({ onSignIn, onClose }) => {
 				onOpenChange={onOpenChange}
 				setIsRegister={setIsRegister}
 				title={dataModal.title}
-
 			/>
 
 			{!isRegister && (

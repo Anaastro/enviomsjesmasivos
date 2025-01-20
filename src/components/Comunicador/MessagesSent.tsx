@@ -27,6 +27,7 @@ export const MessagesSent = () => {
 
 	const getNumberPhone = useCallback(async () => {
 		const rawInformation = await clientService.getInformation({ instanceId });
+		console.log(rawInformation);
 		const { formattedNumber } = rawInformation.me.data;
 
 		return formattedNumber;
@@ -82,7 +83,9 @@ export const MessagesSent = () => {
 
 	return (
 		<div className=" bg-transparent text-black p-4 rounded-2xl h-[50vh] overflow-y-auto border-5 border-purple-700">
-			<p className=" text-[#efefef] font-extralight text-xl mb-2 text-center">Mensajes Enviados</p>
+			<p className=" text-[#efefef] font-extralight text-xl mb-2 text-center">
+				Mensajes Enviados
+			</p>
 
 			<div className=" bg-[#9CFFCB] h-[85%] overflow-y-auto px-4 py-2 rounded-lg">
 				{loading ? (
@@ -91,7 +94,10 @@ export const MessagesSent = () => {
 					</div>
 				) : (
 					data.map((log, index) => (
-						<div key={log.timestamp} className="border-b-1 border-black p-2 text-black font-extralight">
+						<div
+							key={log.timestamp}
+							className="border-b-1 border-black p-2 text-black font-extralight"
+						>
 							<p>
 								Enviado por {log.sentBy} a {log.phoneNumber}
 							</p>

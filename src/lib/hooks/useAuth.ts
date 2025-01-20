@@ -56,24 +56,8 @@ const useAuth = ({ onSignIn, onClose }: Props) => {
 			const userDocRef = doc(database, "users", user.uid);
 			const userDoc = await getDoc(userDocRef);
 
-			if (
-				userDoc.exists() &&
-				userDoc.data().sessionActive &&
-				userDoc.data().deviceId !== getDeviceId()
-			) {
-				setErrorLoggedIn(true);
-				await signOut(auth);
-			} else {
-				await setDoc(
-					userDocRef,
-					{
-						sessionActive: false,
-						deviceId: getDeviceId(),
-						lastLogin: new Date().toISOString(),
-					},
-					{ merge: true }
-				);
-				setUserLoggedIn(false);
+			if (userDoc.exists()) {
+				setUserLoggedIn(true);
 			}
 		} else {
 			setUser(null);
@@ -97,29 +81,55 @@ const useAuth = ({ onSignIn, onClose }: Props) => {
 
 	const registerUser = async () => {
 		try {
+			// Validar código
 			const codeData = await checkCode(code);
 			if (!codeData.valid) {
 				setErrorCode(codeData.message);
 				return;
 			}
 			setErrorCode(null);
-			await changeCodeStatus(codeData.id!);
 
-			const user = await createUserWithEmailAndPassword(auth, email, password);
-			await setDoc(doc(database, "users", user.user.uid), {
-				sessionActive: false,
-				deviceId: getDeviceId(),
-				lastLogin: new Date().toISOString(),
-			});
+			if (codeData.id) {
+				await changeCodeStatus(codeData.id);
+			} else {
+				throw new Error("ID del código no encontrado.");
+			}
+
+			const userCredential = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
+			const user = userCredential.user;
+
+			const userDocRef = doc(database, "users", user.uid);
+			const userDocSnapshot = await getDoc(userDocRef);
+
+			if (!userDocSnapshot.exists()) {
+				await setDoc(userDocRef, {
+					sessionActive: false,
+					lastLogin: new Date().toISOString(),
+				});
+			} else {
+				throw new Error("El documento del usuario ya existe.");
+			}
 
 			setDataModal({
 				title: "Registro exitoso",
 				content: "Usuario registrado exitosamente.",
 				error: false,
 			});
+
 			onOpen();
-		} catch (error) {
-			console.error("Error al registrar usuario:", error);
+		} catch (error: any) {
+			const errorMessage =
+				error.message || "Error desconocido al registrar usuario.";
+			setDataModal({
+				title: "Error en el registro",
+				content: errorMessage,
+				error: true,
+			});
+			console.error("Error al registrar usuario:", errorMessage);
 		}
 	};
 
@@ -131,28 +141,8 @@ const useAuth = ({ onSignIn, onClose }: Props) => {
 				password
 			);
 			const user = userCredential.user;
-			const deviceId = getDeviceId();
 			const userDocRef = doc(database, "users", user.uid);
 			const userDoc = await getDoc(userDocRef);
-
-			if (
-				userDoc.exists() &&
-				userDoc.data().sessionActive &&
-				userDoc.data().deviceId !== deviceId
-			) {
-				setErrorLoggedIn(true);
-				throw new Error("Ya tienes una sesión activa en otro dispositivo.");
-			}
-
-			await setDoc(
-				userDocRef,
-				{
-					sessionActive: true,
-					deviceId,
-					lastLogin: new Date().toISOString(),
-				},
-				{ merge: true }
-			);
 
 			if (userDoc.exists()) {
 				const userRole = userDoc.data().rol || "user";
