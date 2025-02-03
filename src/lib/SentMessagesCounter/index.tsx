@@ -1,13 +1,12 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { databaseRealtime } from "../utils/firebase";
 import {
-	endAt,
-	get,
-	onValue,
-	orderByChild,
 	query,
 	ref,
+	orderByChild,
 	startAt,
+	endAt,
+	onValue,
 } from "firebase/database";
 import { UserContext } from "../context/UserContext";
 import { clientService } from "@/services/clientService";
@@ -22,131 +21,119 @@ export default function SentMessagesCounter() {
 
 	const getNumberPhone = useCallback(async () => {
 		const rawInformation = await clientService.getInformation({ instanceId });
-		const { formattedNumber } = rawInformation.me.data;
-
-		return formattedNumber;
+		return rawInformation.me.data.formattedNumber.replace(" ", "");
 	}, [instanceId]);
 
-	const getMessagesQuery = async ({
-		formattedNumber,
-	}: {
-		formattedNumber: string;
-	}) => {
-		const messageRef = ref(
-			databaseRealtime,
-			`messagesSent/${formattedNumber.replace(" ", "")}`
-		);
-
-		const today = new Date();
-		const startOfMonth = new Date(
-			today.getFullYear(),
-			today.getMonth(),
-			1
-		).getTime();
-
-		const endOfMonth =
-			new Date(today.getFullYear(), today.getMonth() + 1, 1).getTime() - 1;
-
-		const messagesThisMonthQuery = query(
+	const getMessagesCount = (
+		formattedNumber: string,
+		startTime: number,
+		endTime: number
+	) => {
+		const messageRef = ref(databaseRealtime, `messagesSent/${formattedNumber}`);
+		const messagesQuery = query(
 			messageRef,
 			orderByChild("createdAt"),
-			startAt(startOfMonth),
-			endAt(endOfMonth)
+			startAt(startTime),
+			endAt(endTime)
 		);
 
-		return messagesThisMonthQuery;
-	};
-
-	const getMessagesOfMonth = (data: any) => {
-		const totalMessages = Object.values(data).reduce(
-			(acc: number, message: any) => acc + Object.values(message).length,
-			0
-		);
-
-		return totalMessages;
-	};
-
-	const getMessagesOfWeek = (data: any) => {
-		const today = new Date();
-		const startOfWeek = new Date(
-			today.setDate(today.getDate() - today.getDay())
-		).getTime();
-
-		const endOfWeek = new Date(
-			today.setDate(today.getDate() - today.getDay() + 6)
-		).getTime();
-
-		const filterData = Object.values(data).filter(
-			(message: any) =>
-				message.createdAt >= startOfWeek && message.createdAt <= endOfWeek
-		);
-
-		const totalMessages = filterData.reduce(
-			(acc: number, message: any) => acc + Object.values(message).length,
-			0
-		);
-
-		return totalMessages;
-	};
-
-	const getMessagesToday = (data: any) => {
-		const today = new Date();
-		const startOfDay = new Date(
-			today.getFullYear(),
-			today.getMonth(),
-			today.getDate()
-		).getTime();
-		const endOfDay =
-			new Date(
-				today.getFullYear(),
-				today.getMonth(),
-				today.getDate() + 1
-			).getTime() - 1;
-
-		const filterData = Object.values(data).filter(
-			(message: any) =>
-				message.createdAt >= startOfDay && message.createdAt <= endOfDay
-		);
-
-		const totalMessages = filterData.reduce(
-			(acc: number, message: any) => acc + Object.values(message).length,
-			0
-		);
-
-		return totalMessages;
+		return messagesQuery;
 	};
 
 	const fetchCounterMessages = useCallback(async () => {
 		try {
 			const formattedNumber = await getNumberPhone();
-			const messagesThisMonthQuery = await getMessagesQuery({
+			const today = new Date();
+
+			const startOfDay = new Date(
+				today.getFullYear(),
+				today.getMonth(),
+				today.getDate()
+			).getTime();
+			const endOfDay = startOfDay + 86400000 - 1;
+
+			const startOfWeek = new Date(
+				today.setDate(today.getDate() - today.getDay())
+			).getTime();
+			const endOfWeek = startOfWeek + 6 * 86400000 + 86399999;
+
+			const startOfMonth = new Date(
+				today.getFullYear(),
+				today.getMonth(),
+				1
+			).getTime();
+			const endOfMonth =
+				new Date(today.getFullYear(), today.getMonth() + 1, 1).getTime() - 1;
+
+			const todayQuery = getMessagesCount(
 				formattedNumber,
+				startOfDay,
+				endOfDay
+			);
+			const weekQuery = getMessagesCount(
+				formattedNumber,
+				startOfWeek,
+				endOfWeek
+			);
+			const monthQuery = getMessagesCount(
+				formattedNumber,
+				startOfMonth,
+				endOfMonth
+			);
+
+			console.log({
+				startOfDay: new Date(startOfDay),
+				endOfDay: new Date(endOfDay),
+				startOfWeek: new Date(startOfWeek),
+				endOfWeek: new Date(endOfWeek),
+				startOfMonth: new Date(startOfMonth),
+				endOfMonth: new Date(endOfMonth),
 			});
 
-			onValue(messagesThisMonthQuery, (snapshot) => {
-				const rawData = snapshot.val() || {};
-				const messagesOfMonth = getMessagesOfMonth(rawData);
-				const messagesOfWeek = getMessagesOfWeek(rawData);
-				const messagesToday = getMessagesToday(rawData);
+			const handleSnapshot = (
+				snapshot: any,
+				setState: React.Dispatch<React.SetStateAction<any>>
+			) => {
+				const data = snapshot.val() || {};
+				const totalMessages = Object.values(data).reduce(
+					(acc: number, message: any) => {
+						if (message.logs) {
+							return acc + Object.values(message.logs).length;
+						}
+						return acc;
+					},
+					0
+				);
+				setState(totalMessages);
+			};
 
-				setCounterMessages({
-					today: messagesToday,
-					week: messagesOfWeek,
-					month: messagesOfMonth,
-				});
-			});
+			onValue(todayQuery, (snapshot) =>
+				handleSnapshot(snapshot, (messages) =>
+					setCounterMessages((prev) => ({ ...prev, today: messages }))
+				)
+			);
+			onValue(weekQuery, (snapshot) =>
+				handleSnapshot(snapshot, (messages) =>
+					setCounterMessages((prev) => ({ ...prev, week: messages }))
+				)
+			);
+			onValue(monthQuery, (snapshot) =>
+				handleSnapshot(snapshot, (messages) =>
+					setCounterMessages((prev) => ({ ...prev, month: messages }))
+				)
+			);
 		} catch (error) {
-			console.error("Error al recuperar los mensajes del mes:", error);
-			setCounterMessages({
-				today: 0,
-				week: 0,
-				month: 0,
-			});
+			console.error("Error al recuperar los mensajes:", error);
+			setCounterMessages({ today: 0, week: 0, month: 0 });
 		}
 	}, [getNumberPhone]);
 
 	useEffect(() => {
 		fetchCounterMessages();
+
+		return () => {
+			setCounterMessages({ today: 0, week: 0, month: 0 });
+		};
 	}, [fetchCounterMessages]);
 
 	return (
@@ -158,12 +145,16 @@ export default function SentMessagesCounter() {
 				</div>
 
 				<div className="flex justify-between items-center">
-					<p className="text-black font-extralight">Mensajes enviados esta semana:</p>
+					<p className="text-black font-extralight">
+						Mensajes enviados esta semana:
+					</p>
 					<p>{counterMessages.week}</p>
 				</div>
 
 				<div className="flex justify-between items-center">
-					<p className="text-black font-extralight">Mensajes enviados este mes:</p>
+					<p className="text-black font-extralight">
+						Mensajes enviados este mes:
+					</p>
 					<p>{counterMessages.month}</p>
 				</div>
 			</div>

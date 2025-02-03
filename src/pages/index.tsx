@@ -1,12 +1,11 @@
 import Comunicador from "@/components/Comunicador";
 import Configuracion from "@/components/Login/Configuracion";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion } from "framer-motion";
 
 import { getAuth, signOut } from "firebase/auth";
 import { LoggedContext } from "@/lib/context/LoggedContext";
-import { doc, setDoc } from "firebase/firestore";
-import { app, database } from "@/lib/utils/firebase";
+import { app } from "@/lib/utils/firebase";
 import { UserContext } from "@/lib/context/UserContext";
 import ListPhoneNumbers from "@/components/Login/ListPhoneNumbers";
 import ParticlesBackgroud from "@/components/ParticlesBackground";
@@ -24,15 +23,6 @@ const Home: React.FC = () => {
 	const { instanceId, setInstanceId } = useContext(UserContext);
 
 	const auth = getAuth(app);
-
-	useEffect(() => {
-		console.log({
-			user,
-			userLoggedIn,
-			errorLoggedIn,
-			instanceId,
-		});
-	}, [user, userLoggedIn, errorLoggedIn, instanceId]);
 
 	const handleSignOut = async () => {
 		try {
