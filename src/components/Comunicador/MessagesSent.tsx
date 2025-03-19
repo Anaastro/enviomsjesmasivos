@@ -25,10 +25,10 @@ export const MessagesSent = () => {
 	return (
 		<div className=" bg-transparent text-black p-4 rounded-2xl h-[50vh] overflow-y-auto border-5 border-purple-700">
 			<p className=" text-[#efefef] font-extralight text-xl mb-2 text-center">
-				Mensajes Enviados
+				Notas
 			</p>
 
-			<div className=" bg-[#9CFFCB] h-[85%] overflow-y-auto px-4 py-2 rounded-lg">
+			<div className="  h-[85%] overflow-y-auto px-4 py-2 rounded-lg">
 				{loading ? (
 					<div className="flex justify-center items-center w-full h-full">
 						<DotLoader />
