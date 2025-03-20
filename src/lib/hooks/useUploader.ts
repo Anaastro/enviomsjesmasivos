@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import { auth, database } from "../utils/firebase";
 import { Phone } from "../interfaces/phone";
@@ -21,6 +21,7 @@ export const useUploader = ({ setPhones }: { setPhones: any }) => {
 
 	const handleFileProcess = async () => {
 		setExistingPhones(null);
+
 		if (file) {
 			const fileReader = new FileReader();
 			fileReader.readAsArrayBuffer(file);
