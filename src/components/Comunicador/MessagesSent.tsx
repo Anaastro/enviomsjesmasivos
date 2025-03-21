@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { ref, onValue, serverTimestamp, push, off } from "firebase/database";
+import {
+	ref,
+	onValue,
+	serverTimestamp,
+	push,
+	off,
+	query,
+	remove,
+} from "firebase/database";
 import { auth, databaseRealtime } from "@/lib/utils/firebase";
 import DotLoader from "../DotLoader";
 import { onAuthStateChanged } from "firebase/auth";
@@ -27,6 +35,7 @@ export const MessagesSent = () => {
 		if (!uid) return;
 
 		const notasRef = ref(databaseRealtime, `notas/${uid}`);
+
 		const unsubscribe = onValue(notasRef, (snapshot) => {
 			const notasData = snapshot.val();
 			if (!notasData) {
@@ -71,25 +80,25 @@ export const MessagesSent = () => {
 	};
 
 	const handleDelete = (id: string) => {
-		if (!uid) return;
+		if (!uid) {
+			console.log("Error al borrar la nota: No hay un usuario autenticado");
+			return;
+		}
 
 		try {
 			const notaRef = ref(databaseRealtime, `notas/${uid}/${id}`);
-			push(notaRef, {
-				deletedAt: serverTimestamp(),
-			});
+			remove(notaRef);
 		} catch (error) {
 			console.error("Error al borrar la nota:", error);
 		}
 	};
 
 	return (
-		<div className="bg-transparent text-black p-4 rounded-2xl h-[50vh] overflow-y-auto border-5 border-purple-700">
+		<div className="bg-transparent text-black p-4 rounded-2xl max-h-[50vh] overflow-y-auto border-5 border-purple-700">
 			<p className="text-[#efefef] font-extralight text-xl mb-2 text-center">
 				Notas
 			</p>
 
-			{/* Formulario */}
 			<form
 				onSubmit={handleSubmit}
 				className="flex flex-col items-center gap-4"
@@ -107,7 +116,6 @@ export const MessagesSent = () => {
 				</button>
 			</form>
 
-			{/* Lista de notas */}
 			<div className="h-[85%] overflow-y-auto px-4 py-2 rounded-lg">
 				{loading ? (
 					<div className="flex justify-center items-center w-full h-full">
