@@ -32,7 +32,6 @@ export default function LoaderMessages({
 
 	useEffect(() => {
 		if (!instanceId || !userId || !messageId) return;
-		console.log(instanceId, userId, messageId);
 
 		const dataRef = ref(
 			databaseRealtime,
@@ -41,16 +40,11 @@ export default function LoaderMessages({
 
 		const unsubscribe = onValue(dataRef, (snapshot) => {
 			const newData = snapshot.val();
-			console.log("newData", newData);
 			setData(newData);
 		});
 
 		return () => unsubscribe();
 	}, [instanceId, userId, messageId]);
-
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
 
 	useEffect(() => {
 		const updateFirestore = async () => {

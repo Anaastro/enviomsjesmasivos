@@ -15,8 +15,6 @@ export const useListInstances = () => {
 			try {
 				const { instances } = (await adminService.getInstances()) as any;
 
-				console.log(instances);
-
 				const getInstances = await Promise.all(
 					instances.map(async (instance: any) => {
 						const rawData = await clientService.getInformation({

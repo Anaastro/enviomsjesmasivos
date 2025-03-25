@@ -46,6 +46,8 @@ const useAuth = ({ onSignIn, onClose }: Props) => {
 		error: false,
 	});
 
+	const { setInstanceId } = useContext(UserContext);
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, handleAuthStateChange);
 		return () => unsubscribe();
@@ -143,6 +145,13 @@ const useAuth = ({ onSignIn, onClose }: Props) => {
 			const user = userCredential.user;
 			const userDocRef = doc(database, "users", user.uid);
 			const userDoc = await getDoc(userDocRef);
+
+			const userDocData = userDoc.data();
+			const instanceId = userDocData?.instanceId || null;
+
+			if (instanceId) {
+				setInstanceId(instanceId);
+			}
 
 			if (userDoc.exists()) {
 				const userRole = userDoc.data().rol || "user";

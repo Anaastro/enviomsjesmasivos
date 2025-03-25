@@ -16,7 +16,9 @@ const DashboardLayout = ({ children }: any) => {
 	return (
 		<div className="flex min-h-screen bg-gray-900 text-white">
 			<aside
-				className={`fixed inset-y-0 left-0 z-30 w-64 bg-black shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+				className={`fixed inset-y-0 left-0 z-30 w-64 bg-black shadow-lg transform transition-transform duration-300 ease-in-out ${
+					isOpen ? "translate-x-0" : "-translate-x-full"
+				} md:translate-x-0`}
 			>
 				<div className="p-4 flex justify-between items-center">
 					<div className="font-bold text-lg">Dashboard</div>
@@ -53,6 +55,12 @@ const DashboardLayout = ({ children }: any) => {
 							closeMenu={closeMenu}
 							icon={<CodeIcon />}
 							label="Códigos"
+						/>
+						<ButtonNav
+							href={"/dashboard/usuarios"}
+							closeMenu={closeMenu}
+							icon={<CodeIcon />}
+							label="Usuarios"
 						/>
 					</ul>
 				</nav>

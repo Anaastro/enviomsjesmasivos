@@ -99,7 +99,14 @@ const Home: React.FC = () => {
 						onSignOut={handleSignOut}
 					/>
 				)}
-				{userLoggedIn && user && !instanceId && <ListPhoneNumbers />}
+				{userLoggedIn && user && !instanceId && user.rol !== "admin" && (
+					<div className="bg-white p-4 rounded-lg shadow-lg">
+						<p>No se le asigno una instancia. Intentelo mas tarde</p>
+					</div>
+				)}
+				{userLoggedIn && user && !instanceId && user.rol === "admin" && (
+					<ListPhoneNumbers />
+				)}
 				{userLoggedIn && user && instanceId && (
 					<>
 						<Comunicador

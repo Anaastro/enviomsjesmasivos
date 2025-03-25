@@ -81,15 +81,6 @@ export default function SentMessagesCounter() {
 				endOfMonth
 			);
 
-			console.log({
-				startOfDay: new Date(startOfDay),
-				endOfDay: new Date(endOfDay),
-				startOfWeek: new Date(startOfWeek),
-				endOfWeek: new Date(endOfWeek),
-				startOfMonth: new Date(startOfMonth),
-				endOfMonth: new Date(endOfMonth),
-			});
-
 			const handleSnapshot = (
 				snapshot: any,
 				setState: React.Dispatch<React.SetStateAction<any>>
