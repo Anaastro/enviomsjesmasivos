@@ -8,8 +8,6 @@ import type { AppProps } from "next/app";
 import { SelectedPhonesProvider } from "@/lib/context/SelectedPhonesContext";
 
 export default function App({ Component, pageProps }: AppProps) {
-	useBeforeUnload();
-
 	return (
 		<SelectedPhonesProvider>
 			<NextUIProvider>

@@ -38,4 +38,12 @@ export default class UserService {
 
 		return { data };
 	};
+
+	static fetchUser = async (id: string) => {
+		const response = await fetch(`/api/users/${id}`);
+		if (!response.ok) throw new Error("Error fetching user");
+
+		const { user } = await response.json();
+		return user;
+	};
 }

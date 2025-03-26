@@ -1,14 +1,16 @@
 import Comunicador from "@/components/Comunicador";
 import Configuracion from "@/components/Login/Configuracion";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { LoggedContext } from "@/lib/context/LoggedContext";
-import { app } from "@/lib/utils/firebase";
+import { app, database } from "@/lib/utils/firebase";
 import { UserContext } from "@/lib/context/UserContext";
 import ListPhoneNumbers from "@/components/Login/ListPhoneNumbers";
 import ParticlesBackgroud from "@/components/ParticlesBackground";
+import { doc, getDoc } from "firebase/firestore";
+import UserService from "@/services/userService";
 
 interface User {
 	email: string;
@@ -23,6 +25,48 @@ const Home: React.FC = () => {
 	const { instanceId, setInstanceId } = useContext(UserContext);
 
 	const auth = getAuth(app);
+
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+			if (currentUser) {
+				setUserLoggedIn(true);
+				setIsConfigOpen(false);
+
+				const userRef = doc(database, "users", currentUser.uid);
+				const isMounted = { value: true };
+
+				try {
+					const userRaw = await getDoc(userRef);
+					const userAuth = await UserService.fetchUser(currentUser.uid);
+
+					if (isMounted.value) {
+						if (userRaw.exists()) {
+							const userData = userRaw.data();
+							setUser({
+								email: userAuth?.email || userData.email,
+								rol: userData.rol || "user",
+							});
+							setInstanceId(userData.instanceId);
+						} else {
+							setUser({
+								email: userAuth?.email || "",
+								rol: "user",
+							});
+						}
+					}
+				} catch (error) {
+					console.error("Error fetching user data:", error);
+				}
+			} else {
+				setUserLoggedIn(false);
+				setUser(null);
+			}
+		});
+
+		return () => {
+			unsubscribe();
+		};
+	}, [auth, setUserLoggedIn, setInstanceId]);
 
 	const handleSignOut = async () => {
 		try {
