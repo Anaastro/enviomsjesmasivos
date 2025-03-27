@@ -1,32 +1,33 @@
 import { Phone } from "@/lib/interfaces/phone";
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaCheckCircle } from 'react-icons/fa';
+import {
+  FaArrowAltCircleLeft,
+  FaArrowAltCircleRight,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 interface Props {
-	phones: Phone[];
-	startIndex: number;
-	handleStartIndexChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	endIndex: number;
-	handleEndIndexChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleSelectRange: () => void;
+  phones: Phone[];
+  startIndex: number;
+  handleStartIndexChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  endIndex: number;
+  handleEndIndexChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectRange: () => void;
 }
 
 export const IndexSelector = ({
-	phones,
-	startIndex,
-	handleStartIndexChange,
-	endIndex,
-	handleEndIndexChange,
-	handleSelectRange,
+  phones,
+  startIndex,
+  handleStartIndexChange,
+  endIndex,
+  handleEndIndexChange,
+  handleSelectRange,
 }: Props) => {
-
-
-return (
+  return (
     <div className="mb-6">
-		<label className="block text-white font-extralight mb-2 text-center">
- 				Seleccionar rango y haz clic
-	</label>
+      <label className="block text-white font-extralight mb-2 text-center">
+        Seleccionar rango y haz clic
+      </label>
       <div className="flex space-x-4 justify-center items-center">
-     
         <div className="relative">
           <input
             type="number"
@@ -54,7 +55,6 @@ return (
         </div>
       </div>
 
-     
       <div className="mt-6 flex justify-center">
         <button
           onClick={handleSelectRange}

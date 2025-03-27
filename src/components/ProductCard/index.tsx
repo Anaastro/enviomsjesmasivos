@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 type Product = {
   id: number;
@@ -17,7 +17,10 @@ type ProductCardProps = {
   onSelectProduct: (product: Product) => void;
 };
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onSelectProduct }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onSelectProduct,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleDescription = () => {
@@ -29,16 +32,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelectProduct }) =
   return (
     <div className="w-full md:w-1/3 lg:w-1/4 p-4">
       <div className="bg-black border-2 border-orange-500 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-        <img 
-          src={product.image} 
-          alt={product.name} 
+        <img
+          src={product.image}
+          alt={product.name}
           className="w-full h-64 object-cover rounded-lg" // Aumentar el tamaño de la imagen
         />
         <div className="p-4 text-orange-200">
-          <h3 className="text-lg font-bold mb-2 text-orange-500">{product.name}</h3>
+          <h3 className="text-lg font-bold mb-2 text-orange-500">
+            {product.name}
+          </h3>
           <p className="text-sm mb-4">
             {isExpanded ? product.description : `${shortDescription}... `}
-            <span 
+            <span
               className="text-orange-500 cursor-pointer hover:text-orange-700"
               onClick={toggleDescription}
             >

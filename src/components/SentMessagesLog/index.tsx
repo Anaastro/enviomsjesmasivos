@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 interface SentMessage {
   phone: string;
@@ -11,10 +11,16 @@ interface SentMessagesLogProps {
   searchQuery: string; // El término de búsqueda actual
 }
 
-const SentMessagesLog: React.FC<SentMessagesLogProps> = ({ sentMessages, onSearch, searchQuery }) => {
+const SentMessagesLog: React.FC<SentMessagesLogProps> = ({
+  sentMessages,
+  onSearch,
+  searchQuery,
+}) => {
   return (
     <div className="border p-6 bg-[#9CFFCB] shadow-xl rounded-lg">
-      <h3 className="text-xl font-extralight mb-4 text-[#071830]">Mensajes Enviados</h3>
+      <h3 className="text-xl font-extralight mb-4 text-[#071830]">
+        Mensajes Enviados
+      </h3>
       <input
         type="text"
         value={searchQuery}
@@ -34,4 +40,3 @@ const SentMessagesLog: React.FC<SentMessagesLogProps> = ({ sentMessages, onSearc
 };
 
 export default SentMessagesLog;
-

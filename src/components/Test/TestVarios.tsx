@@ -1,6 +1,4 @@
-
 // 1. getServerSideProps: Carga de Datos del Servidor
-
 
 // const AdminNumbers = ({
 //     adminNumbers = [],
@@ -15,9 +13,9 @@
 //     const [isDeleteSelected, setIsDeleteSelected] = useState(false);  // Modal de eliminación
 //     const [previewUrl, setPreviewUrl] = useState('');  // URL de vista previa de imagen
 //     const [base64Image, setBase64Image] = useState('');  // Imagen en base64
-  
+
 //     const isSelectedFull = adminNumbers.length === selectedNumbers.length;  // Verificar si todos están seleccionados
-  
+
 //     // Formulario con filtros y mensajes
 //     const [form, setForm] = useState({
 //       message: '',
@@ -26,7 +24,7 @@
 //       pageNumber: '1',
 //       pagination: qPagination,
 //     });
-  
+
 //     // Función para manejar cambios en el formulario
 //     const handleInput: HandleInput = (value, name) => {
 //       setForm((prevState) => ({
@@ -34,7 +32,7 @@
 //         ...{ [name]: value },
 //       }));
 //     };
-  
+
 //     // Función para obtener números de Skokka
 //     const fetchSkokka = async () => {
 //       try {
@@ -44,7 +42,7 @@
 //           locationRegion: form.locationRegion,
 //           pageNumber: form.pageNumber,
 //         });
-  
+
 //         const allContent = await jsonResponse.json();
 //         console.log(allContent);
 //         setLoading(false);
@@ -54,7 +52,7 @@
 //         console.log(error);
 //       }
 //     };
-  
+
 //     // Selección de números
 //     const handleSelectedNumbers = (id: string) => {
 //       if (selectedNumbers.includes(id)) {
@@ -63,7 +61,7 @@
 //         setSelectedNumbers([...selectedNumbers, id]);
 //       }
 //     };
-  
+
 //     // Enviar todos los mensajes seleccionados
 //     const sendAllMessages = async () => {
 //       setLoading(true);
@@ -71,7 +69,7 @@
 //         const allRealNumbers = selectedNumbers.map((el) =>
 //           adminNumbers.find((adminNumber) => adminNumber.id === el)
 //         );
-  
+
 //         await Promise.map(
 //           allRealNumbers,
 //           async (el, index) => {
@@ -86,7 +84,7 @@
 //                 mediaName: 'imagen.png',
 //                 mediaBase64: cleanedBase64,
 //               });
-  
+
 //               if (imageSent?.success) {
 //                 await firebaseAdminService.updateSkNumber(el.id, {
 //                   isContacted: true,
@@ -94,12 +92,12 @@
 //               }
 //               return imageSent;
 //             }
-  
+
 //             const messagesSent = await adminService.sendWaMessageWaapi({
 //               phoneNumber: el.phone,
 //               message: form.message,
 //             });
-  
+
 //             if (messagesSent?.success) {
 //               await firebaseAdminService.updateSkNumber(el.id, {
 //                 isContacted: true,
@@ -109,7 +107,7 @@
 //           },
 //           { concurrency: 1 }
 //         );
-  
+
 //         setLoading(false);
 //         router.reload();
 //       } catch (error) {
@@ -117,7 +115,7 @@
 //         setLoading(false);
 //       }
 //     };
-  
+
 //     // Eliminar los números seleccionados
 //     const deleteSelectedNumbers = async () => {
 //       try {
@@ -129,14 +127,14 @@
 //           },
 //           { concurrency: 1 }
 //         );
-  
+
 //         router.reload();
 //       } catch (error) {
 //         setLoading(false);
 //         console.log(error);
 //       }
 //     };
-  
+
 //     // Actualizar la URL con los filtros aplicados
 //     useEffect(() => {
 //       if (form.locationCountryCode && form.pagination) {
@@ -147,7 +145,7 @@
 //         router.replace(finalUrl);
 //       }
 //     }, [form.locationRegion, form.locationCountryCode, form.pagination]);
-  
+
 //     // Renderizado de la interfaz de usuario
 //     return (
 //       <>
@@ -251,11 +249,8 @@
 //       </>
 //     );
 //   };
-  
+
 //   export default AdminNumbers;
-  
-
-
 
 // ¿Qué hace este bloque?
 
@@ -265,7 +260,6 @@
 // Datos para la Página: Los números obtenidos y otros datos se pasan como props al componente de la página.
 // 2. AdminNumbers Componente Principal
 
-
 // const AdminNumbers = ({
 //     adminNumbers = [],
 //     qCountry,
@@ -279,9 +273,9 @@
 //     const [isDeleteSelected, setIsDeleteSelected] = useState(false);  // Modal de eliminación
 //     const [previewUrl, setPreviewUrl] = useState('');  // URL de vista previa de imagen
 //     const [base64Image, setBase64Image] = useState('');  // Imagen en base64
-  
+
 //     const isSelectedFull = adminNumbers.length === selectedNumbers.length;  // Verificar si todos están seleccionados
-  
+
 //     // Formulario con filtros y mensajes
 //     const [form, setForm] = useState({
 //       message: '',
@@ -290,7 +284,7 @@
 //       pageNumber: '1',
 //       pagination: qPagination,
 //     });
-  
+
 //     // Función para manejar cambios en el formulario
 //     const handleInput: HandleInput = (value, name) => {
 //       setForm((prevState) => ({
@@ -298,7 +292,7 @@
 //         ...{ [name]: value },
 //       }));
 //     };
-  
+
 //     // Función para obtener números de Skokka
 //     const fetchSkokka = async () => {
 //       try {
@@ -308,7 +302,7 @@
 //           locationRegion: form.locationRegion,
 //           pageNumber: form.pageNumber,
 //         });
-  
+
 //         const allContent = await jsonResponse.json();
 //         console.log(allContent);
 //         setLoading(false);
@@ -318,7 +312,7 @@
 //         console.log(error);
 //       }
 //     };
-  
+
 //     // Selección de números
 //     const handleSelectedNumbers = (id: string) => {
 //       if (selectedNumbers.includes(id)) {
@@ -327,7 +321,7 @@
 //         setSelectedNumbers([...selectedNumbers, id]);
 //       }
 //     };
-  
+
 //     // Enviar todos los mensajes seleccionados
 //     const sendAllMessages = async () => {
 //       setLoading(true);
@@ -335,7 +329,7 @@
 //         const allRealNumbers = selectedNumbers.map((el) =>
 //           adminNumbers.find((adminNumber) => adminNumber.id === el)
 //         );
-  
+
 //         await Promise.map(
 //           allRealNumbers,
 //           async (el, index) => {
@@ -350,7 +344,7 @@
 //                 mediaName: 'imagen.png',
 //                 mediaBase64: cleanedBase64,
 //               });
-  
+
 //               if (imageSent?.success) {
 //                 await firebaseAdminService.updateSkNumber(el.id, {
 //                   isContacted: true,
@@ -358,12 +352,12 @@
 //               }
 //               return imageSent;
 //             }
-  
+
 //             const messagesSent = await adminService.sendWaMessageWaapi({
 //               phoneNumber: el.phone,
 //               message: form.message,
 //             });
-  
+
 //             if (messagesSent?.success) {
 //               await firebaseAdminService.updateSkNumber(el.id, {
 //                 isContacted: true,
@@ -373,7 +367,7 @@
 //           },
 //           { concurrency: 1 }
 //         );
-  
+
 //         setLoading(false);
 //         router.reload();
 //       } catch (error) {
@@ -381,7 +375,7 @@
 //         setLoading(false);
 //       }
 //     };
-  
+
 //     // Eliminar los números seleccionados
 //     const deleteSelectedNumbers = async () => {
 //       try {
@@ -393,14 +387,14 @@
 //           },
 //           { concurrency: 1 }
 //         );
-  
+
 //         router.reload();
 //       } catch (error) {
 //         setLoading(false);
 //         console.log(error);
 //       }
 //     };
-  
+
 //     // Actualizar la URL con los filtros aplicados
 //     useEffect(() => {
 //       if (form.locationCountryCode && form.pagination) {
@@ -411,7 +405,7 @@
 //         router.replace(finalUrl);
 //       }
 //     }, [form.locationRegion, form.locationCountryCode, form.pagination]);
-  
+
 //     // Renderizado de la interfaz de usuario
 //     return (
 //       <>
@@ -515,10 +509,8 @@
 //       </>
 //     );
 //   };
-  
-//   export default AdminNumbers;
-  
 
+//   export default AdminNumbers;
 
 // ¿Qué hace este componente?
 
@@ -533,6 +525,6 @@
 // mockService: Un servicio para obtener números simulados de una API.
 // AdminNumbersTable, AdminNumbersTextarea, CustomLoader, DeleteModal, etc.: Componentes que encapsulan partes específicas de la UI.
 // Resumen General
-// Este código es una página de administración que permite a los usuarios enviar mensajes de WhatsApp a una lista de números telefónicos almacenados en Firebase Firestore. 
+// Este código es una página de administración que permite a los usuarios enviar mensajes de WhatsApp a una lista de números telefónicos almacenados en Firebase Firestore.
 // Utiliza la autenticación de Firebase para asegurarse de que solo los administradores puedan acceder a esta página. Además, permite a los usuarios filtrar números, seleccionarlos en masa,
 // enviar mensajes o imágenes, y eliminar números de la base de datos.

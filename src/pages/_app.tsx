@@ -8,17 +8,17 @@ import type { AppProps } from "next/app";
 import { SelectedPhonesProvider } from "@/lib/context/SelectedPhonesContext";
 
 export default function App({ Component, pageProps }: AppProps) {
-	return (
-		<SelectedPhonesProvider>
-			<NextUIProvider>
-				<LoggedProvider>
-					<UserProvider>
-						<IsSentProvider>
-							<Component {...pageProps} />
-						</IsSentProvider>
-					</UserProvider>
-				</LoggedProvider>
-			</NextUIProvider>
-		</SelectedPhonesProvider>
-	);
+  return (
+    <SelectedPhonesProvider>
+      <NextUIProvider>
+        <LoggedProvider>
+          <UserProvider>
+            <IsSentProvider>
+              <Component {...pageProps} />
+            </IsSentProvider>
+          </UserProvider>
+        </LoggedProvider>
+      </NextUIProvider>
+    </SelectedPhonesProvider>
+  );
 }

@@ -1,108 +1,108 @@
 .container {
-	height: 100vh;
-	overflow-y: hidden;
-	background-color: rgb(19, 19, 19);
-	color: beige;
+  height: 100vh;
+  overflow-y: hidden;
+  background-color: rgb(19, 19, 19);
+  color: beige;
 }
 
 .nav {
-	display: flex;
-	justify-content: space-between;
-	padding: 35px 45px;
+  display: flex;
+  justify-content: space-between;
+  padding: 35px 45px;
 }
 
 .nav .logo_container {
-	overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .nav .logo_container h1 {
-	text-transform: uppercase;
-	font-size: 15px;
+  text-transform: uppercase;
+  font-size: 15px;
 }
 
 .nav .menu_container {
-	overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .nav .menu_container div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-transform: uppercase;
-	font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 
 .nav .menu_container div:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .mobile_menu {
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
 }
 
 .mobile_menu > button {
-	align-self: flex-end;
-	margin: 55px 20px 0 0;
-	outline: none;
-	border: none;
-	background-color: transparent;
-	text-transform: uppercase;
-	font-family: inherit;
-	font-size: 13px;
-	color: white;
+  align-self: flex-end;
+  margin: 55px 20px 0 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-family: inherit;
+  font-size: 13px;
+  color: white;
 }
 
 .mobile_menu button:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .mobile_menu ul {
-	list-style: none;
-	margin-top: 40px;
+  list-style: none;
+  margin-top: 40px;
 }
 
 .mobile_menu ul li {
-	margin: 20px 0;
-	overflow-y: hidden;
-	user-select: none;
+  margin: 20px 0;
+  overflow-y: hidden;
+  user-select: none;
 }
 
 .mobile_menu ul li div,
 .mobile_menu ul li button {
-	text-align: center;
-	text-transform: capitalize;
-	font-size: 24px;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 24px;
 }
 
 .mobile_menu ul li:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .mobile_menu .contact {
-	margin-top: 80px;
-	display: flex;
+  margin-top: 80px;
+  display: flex;
 }
 
 .mobile_menu .contact h5 {
-	font-weight: normal;
+  font-weight: normal;
 }
 
 .img_container {
-	display: flex;
-	justify-content: center;
-	margin-top: 50px;
-	width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  width: 100%;
 }
 
 .img_container img {
-	height: 700px;
-	pointer-events: none;
+  height: 700px;
+  pointer-events: none;
 }
