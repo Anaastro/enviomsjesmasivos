@@ -62,6 +62,12 @@ const DashboardLayout = ({ children }: any) => {
 							icon={<CodeIcon />}
 							label="Usuarios"
 						/>
+						<ButtonNav
+							href={"/dashboard/instancias"}
+							closeMenu={closeMenu}
+							icon={<CodeIcon />}
+							label="Usuarios"
+						/>
 					</ul>
 				</nav>
 			</aside>

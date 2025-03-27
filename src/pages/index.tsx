@@ -42,15 +42,20 @@ const Home: React.FC = () => {
 					if (isMounted.value) {
 						if (userRaw.exists()) {
 							const userData = userRaw.data();
+							const userRol = userData.rol || "user";
+
 							setUser({
 								email: userAuth?.email || userData.email,
-								rol: userData.rol || "user",
+								rol: userRol,
 							});
-							setInstanceId(userData.instanceId);
+
+							if (userRol !== "admin") {
+								setInstanceId(userData.instanceId);
+							}
 						} else {
 							setUser({
 								email: userAuth?.email || "",
-								rol: "user",
+								rol: "",
 							});
 						}
 					}

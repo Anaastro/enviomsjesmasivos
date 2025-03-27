@@ -1,3 +1,4 @@
+import { InstancesResponse } from "@/lib/interfaces/instances-responce.interface";
 import { convertDate } from "@/lib/utils/utils";
 
 interface AdminService {
@@ -12,7 +13,7 @@ interface AdminService {
 	) => Promise<Response>;
 	getInstances: () => Promise<Response>;
 	getAllChats: ({ instanceId }: { instanceId: string }) => Promise<Response>;
-	getWaapiInstances: (waapiApiKey: string) => Promise<Response>;
+	getWaapiInstances: (waapiApiKey: string) => Promise<InstancesResponse>;
 	getWaapiQrCode: (
 		waapiApiKey: string,
 		instanceId: string
