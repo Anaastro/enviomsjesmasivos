@@ -64,7 +64,6 @@ const Home: React.FC = () => {
                 rol: "",
               });
             }
-
             const result = await fetch("/api/setCustomUserClaims", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -119,16 +118,6 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
-        <div>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="bg-purple-700 text-white font-extralight py-3 px-6 rounded-lg shadow-lg z-30"
-            onClick={handleSignOut}
-          >
-            Cerrar Session
-          </motion.button>
-        </div>
         <ParticlesBackgroud />
         <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-6 sm:space-y-0">
           <img
@@ -174,6 +163,18 @@ const Home: React.FC = () => {
         )}
         {userLoggedIn && user && !instanceId && user.rol === "admin" && (
           <ListPhoneNumbers />
+        )}
+        {userLoggedIn && user && (
+          <div>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-purple-700 text-white font-extralight py-3 px-6 rounded-lg shadow-lg z-30"
+              onClick={handleSignOut}
+            >
+              Cerrar Session
+            </motion.button>
+          </div>
         )}
         {userLoggedIn && user && instanceId && (
           <>
