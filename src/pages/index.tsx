@@ -77,6 +77,7 @@ const Home: React.FC = () => {
           console.error("Error fetching user data:", error);
         }
       } else {
+        nookies.set(undefined, "token", "", { path: "/" });
         setUserLoggedIn(false);
         setUser(null);
       }

@@ -4,26 +4,29 @@ import { Chat, OptionsFilter } from "../interfaces";
 import { adminService } from "@/services/adminService";
 
 export const useChats = () => {
-  const [chats, setChats] = useState<Chat[]>();
+  const [chats, setChats] = useState<Chat[]>([]);
   const [filter, setFilter] = useState<OptionsFilter>(OptionsFilter.ALL);
   const { instanceId } = useContext(UserContext);
 
   useEffect(() => {
-    const fetchChats = () => {
-      adminService
-        .getAllChats({ instanceId })
-        .then(({ chats }: any) => {
-          setChats(chats);
-        })
-        .catch((error) => {
-          console.error("Error fetching chats:", error);
-        });
+    const fetchChats = async () => {
+      try {
+        const allChats = (await adminService.getAllChats({
+          instanceId,
+        })) as any;
+
+        const chatArray = allChats?.chats;
+        if (chatArray) {
+          setChats(chatArray);
+        }
+      } catch (error) {
+        console.error("Error fetching chats:", error);
+      }
     };
 
     fetchChats();
-    const intervalId = setInterval(fetchChats, 5000);
-
-    return () => clearInterval(intervalId);
+    // const intervalId = setInterval(fetchChats, 5000);
+    // return () => clearInterval(intervalId);
   }, [instanceId]);
 
   const filteredChats = useMemo(() => {
