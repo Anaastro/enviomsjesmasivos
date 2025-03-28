@@ -32,6 +32,8 @@ export default function TableUsers() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  //  Mas limpio y ordenado
+
   const rowsPerPage = 12;
   const loadingState = isLoading || users?.length === 0 ? "loading" : "idle";
   const pages = Math.ceil(users.length / rowsPerPage);

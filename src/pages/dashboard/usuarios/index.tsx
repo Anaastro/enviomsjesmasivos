@@ -4,6 +4,10 @@ import { generateCode } from "@/services/codeService";
 import TableCodes from "@/components/Dashboard/TableCodes";
 import TableUsers from "@/components/Dashboard/TableUsers";
 
+import nookies from "nookies";
+import { GetServerSidePropsContext } from "next";
+import { auth } from "@/config/firebaseAdmin";
+
 interface Code {
   id: string;
   code: string;
@@ -11,7 +15,43 @@ interface Code {
   createdAt: Date;
 }
 
-const DashboardPage = () => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  try {
+    const cookies = nookies.get(ctx);
+
+    const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
+    const isAdmin = verifiedIdTokenResult.admin;
+
+    if (!isAdmin) {
+      ctx.res.writeHead(302, { Location: "/" });
+      ctx.res.end();
+    }
+
+    //  Desde aqui se llama a la base de datos para obtener los usuarios
+
+    const listUsersResult = await auth.listUsers();
+    const users = listUsersResult.users.map((userRecord) => ({
+      uid: userRecord.uid,
+      email: userRecord.email,
+    }));
+
+    return {
+      props: {
+        users,
+      },
+    };
+  } catch (err) {
+    ctx.res.writeHead(302, { Location: "/" });
+    ctx.res.end();
+    return {
+      props: {} as never,
+    };
+  }
+};
+
+const DashboardPage = ({ users }: { users: any }) => {
+  // console.log(users, "users");
+
   const handleGenerateCode = async () => {
     await generateCode();
   };
