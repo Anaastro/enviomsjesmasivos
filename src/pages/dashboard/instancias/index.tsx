@@ -59,7 +59,6 @@ const DashboardPage = () => {
 							...instanceInformation,
 						},
 					]);
-					setLoading(false);
 					Swal.close();
 				},
 			}).then(() => {
@@ -67,7 +66,7 @@ const DashboardPage = () => {
 					title: "Instancia creada",
 					icon: "success",
 				});
-				setLoading(true);
+				setLoading(false);
 			});
 		} catch (error) {
 			console.log(error);
