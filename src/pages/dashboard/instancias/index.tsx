@@ -52,14 +52,6 @@ const DashboardPage = () => {
 					const { instance } = await InstancesService.createInstance();
 					const instanceInformation =
 						await InstancesService.getInformationInstance(instance.id);
-					// const instance: Instance = {
-					// 	id: crypto.randomUUID(),
-					// 	name: "Instancia de prueba",
-					// 	owner: "admin",
-					// 	webhook_events: [],
-					// 	is_trial: 1,
-					// 	webhook_url: "https://waapi.app/api/v1/webhook",
-					// };
 					setInstances([
 						...instances,
 						{
@@ -67,6 +59,7 @@ const DashboardPage = () => {
 							...instanceInformation,
 						},
 					]);
+					setLoading(false);
 					Swal.close();
 				},
 			}).then(() => {

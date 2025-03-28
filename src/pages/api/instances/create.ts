@@ -7,7 +7,7 @@ const waapiApiKey = process.env.WAAPI_API_KEY as string;
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const { instance }: InstanceResponse =
-			await InstancesService.createInstance();
+			await InstancesService.createWaapiInstance(waapiApiKey);
 
 		res.status(200).json({ instance });
 	} catch (error: any) {
