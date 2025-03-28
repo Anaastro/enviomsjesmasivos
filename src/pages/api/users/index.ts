@@ -6,6 +6,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    const authHeader = req.headers["authorization"];
+
+    if (authHeader && authHeader !== "123456789") {
+      res.redirect("/");
+    }
+
+    if (!authHeader) {
+      res.redirect("/");
+    }
+
     const listUsersResult = await auth.listUsers();
     const users = listUsersResult.users.map((userRecord) => ({
       uid: userRecord.uid,

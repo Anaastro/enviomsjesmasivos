@@ -3,7 +3,13 @@ import { collection, query, orderBy, getDocs } from "firebase/firestore";
 
 export default class UserService {
   static fetchUsers = async () => {
-    const response = await fetch("/api/users");
+    const response = await fetch("/api/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: "123456789",
+      },
+    });
     if (!response.ok) throw new Error("Error fetching users");
 
     const { users } = await response.json();
