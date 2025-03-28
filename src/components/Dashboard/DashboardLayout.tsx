@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { CodeIcon, HomeIcon } from "../Icons";
 import ButtonNav from "./ButtonNav";
+import { FaArrowLeft } from "react-icons/fa";
+import Link from "next/link";
 
 const DashboardLayout = ({ children }: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +23,10 @@ const DashboardLayout = ({ children }: any) => {
         } md:translate-x-0`}
       >
         <div className="p-4 flex justify-between items-center">
-          <div className="font-bold text-lg">Dashboard</div>
+          <Link href={"/"} className="flex items-center space-x-2">
+            <FaArrowLeft className="w-6 h-6" />
+            <div className="font-bold text-lg">Volver</div>
+          </Link>
           <button
             onClick={closeMenu}
             className="text-white focus:outline-none md:hidden"
