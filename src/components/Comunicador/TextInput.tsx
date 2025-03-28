@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface TextInputProps {
   setStatusMessages: React.Dispatch<React.SetStateAction<string[]>>;
@@ -6,8 +6,12 @@ interface TextInputProps {
   phones: string[];
 }
 
-const TextInput: React.FC<TextInputProps> = ({ setStatusMessages, setLog, phones }) => {
-  const [textMessage, setTextMessage] = useState('');
+const TextInput: React.FC<TextInputProps> = ({
+  setStatusMessages,
+  setLog,
+  phones,
+}) => {
+  const [textMessage, setTextMessage] = useState("");
 
   const handleSendMessages = () => {
     phones.forEach((phone) => {

@@ -11,8 +11,7 @@ export type Product = {
   };
 };
 
-  export type Category = {
-    id: string;
-    name: string;
-  };
-  
+export type Category = {
+  id: string;
+  name: string;
+};

@@ -1,14 +1,12 @@
-import React from 'react'
-import CrearCategoriaProducto from './CrearCategoriaProducto'
+import React from "react";
+import CrearCategoriaProducto from "./CrearCategoriaProducto";
 
 const CrearProducto = () => {
   return (
     <div>
-      <CrearCategoriaProducto/>
+      <CrearCategoriaProducto />
     </div>
-  )
-}
+  );
+};
 
-export default CrearProducto
-
-
+export default CrearProducto;

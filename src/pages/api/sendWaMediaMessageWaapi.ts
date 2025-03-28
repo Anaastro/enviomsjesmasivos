@@ -45,47 +45,47 @@ import { adminService } from "../../services/adminService";
 const waapiApiKey = process.env.WAAPI_API_KEY as string;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { phoneNumber, message, mediaBase64, mediaCaption, mediaName } =
-		req.body;
+  const { phoneNumber, message, mediaBase64, mediaCaption, mediaName } =
+    req.body;
 
-	try {
-		// Obtener instancias de WAAPI
-		const instances = (await adminService.getWaapiInstances(
-			waapiApiKey
-		)) as any;
-		const firstInstance = instances?.instances[0];
-		const instanceId = firstInstance?.id;
+  try {
+    // Obtener instancias de WAAPI
+    const instances = (await adminService.getWaapiInstances(
+      waapiApiKey
+    )) as any;
+    const firstInstance = instances?.instances[0];
+    const instanceId = firstInstance?.id;
 
-		if (!instanceId) {
-			throw new Error("Instance ID not found");
-		}
-		if (instanceId) {
-			// if (mediaBase64 && mediaCaption && mediaName) {
-			// Enviar mensaje con medios
-			await adminService.sendWaapiWaMediaMessage({
-				waapiApiKey,
-				instanceId,
-				phoneNumber,
-				mediaCaption,
-				mediaName,
-				mediaBase64,
-				message,
-			});
-		} else {
-			// Enviar mensaje de texto
-			// await adminService.sendWaapiWaMessage({
-			//   waapiApiKey,
-			//   instanceId,
-			//   message,
-			//   phoneNumber,
-			// });
-		}
+    if (!instanceId) {
+      throw new Error("Instance ID not found");
+    }
+    if (instanceId) {
+      // if (mediaBase64 && mediaCaption && mediaName) {
+      // Enviar mensaje con medios
+      await adminService.sendWaapiWaMediaMessage({
+        waapiApiKey,
+        instanceId,
+        phoneNumber,
+        mediaCaption,
+        mediaName,
+        mediaBase64,
+        message,
+      });
+    } else {
+      // Enviar mensaje de texto
+      // await adminService.sendWaapiWaMessage({
+      //   waapiApiKey,
+      //   instanceId,
+      //   message,
+      //   phoneNumber,
+      // });
+    }
 
-		res.status(200).json({ success: true });
-	} catch (error: any) {
-		console.error("Error al enviar el mensaje de WhatsApp:", error.message);
-		res.status(500).json({ success: false, error: error.message });
-	}
+    res.status(200).json({ success: true });
+  } catch (error: any) {
+    console.error("Error al enviar el mensaje de WhatsApp:", error.message);
+    res.status(500).json({ success: false, error: error.message });
+  }
 };
 
 export default handler;
