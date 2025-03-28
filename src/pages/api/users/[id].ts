@@ -25,9 +25,9 @@ export default async function handler(
       }
 
       const user = await auth.getUser(id as string);
-      console.log({
-        user,
-      });
+      // console.log({
+      //   user,
+      // });
       return res.status(200).json({ user });
     } catch (error) {
       console.error("Error fetching users:", error);

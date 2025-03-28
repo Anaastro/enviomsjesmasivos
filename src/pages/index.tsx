@@ -11,6 +11,7 @@ import ListPhoneNumbers from "@/components/Login/ListPhoneNumbers";
 import ParticlesBackgroud from "@/components/ParticlesBackground";
 import { doc, getDoc } from "firebase/firestore";
 import UserService from "@/services/userService";
+import nookies from "nookies";
 
 interface User {
   email: string;
@@ -32,12 +33,17 @@ const Home: React.FC = () => {
         setUserLoggedIn(true);
         setIsConfigOpen(false);
 
-        const userRef = doc(database, "users", currentUser.uid);
+        const token = await currentUser.getIdToken();
+
+        nookies.set(undefined, "token", token, { path: "/" });
+        const uid = currentUser.uid;
+
+        const userRef = doc(database, "users", uid);
         const isMounted = { value: true };
 
         try {
           const userRaw = await getDoc(userRef);
-          const userAuth = await UserService.fetchUser(currentUser.uid);
+          const userAuth = await UserService.fetchUser(uid);
 
           if (isMounted.value) {
             if (userRaw.exists()) {
@@ -58,6 +64,14 @@ const Home: React.FC = () => {
                 rol: "",
               });
             }
+
+            const result = await fetch("/api/setCustomUserClaims", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ uid }),
+            });
+
+            return await result.json();
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -76,7 +90,6 @@ const Home: React.FC = () => {
   const handleSignOut = async () => {
     try {
       if (!auth.currentUser) return;
-      const userUid = auth.currentUser.uid;
 
       await signOut(auth);
 
@@ -86,11 +99,6 @@ const Home: React.FC = () => {
       // 	{ phone: "", sessionActive: false },
       // 	{ merge: true }
       // );
-
-      setUserLoggedIn(false);
-      setIsConfigOpen(true);
-      setInstanceId(null);
-      setUser(null);
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
@@ -110,6 +118,16 @@ const Home: React.FC = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center justify-center bg-black relative">
+        <div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="bg-purple-700 text-white font-extralight py-3 px-6 rounded-lg shadow-lg z-30"
+            onClick={handleSignOut}
+          >
+            Cerrar Session
+          </motion.button>
+        </div>
         <ParticlesBackgroud />
         <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-6 sm:space-y-0">
           <img
