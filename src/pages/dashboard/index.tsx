@@ -5,15 +5,15 @@ import nookies from "nookies";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
-    const cookies = nookies.get(ctx);
+    // const cookies = nookies.get(ctx);
 
-    const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
-    const isAdmin = verifiedIdTokenResult.admin;
+    // const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
+    // const isAdmin = verifiedIdTokenResult.admin;
 
-    if (!isAdmin) {
-      ctx.res.writeHead(302, { Location: "/" });
-      ctx.res.end();
-    }
+    // if (!isAdmin) {
+    //   ctx.res.writeHead(302, { Location: "/" });
+    //   ctx.res.end();
+    // }
 
     const test = { test: true };
 
