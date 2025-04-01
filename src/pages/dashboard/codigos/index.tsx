@@ -22,9 +22,7 @@ const DashboardPage = () => {
           <h1 className="text-2xl font-bold">Códigos de Registro</h1>
         </div>
 
-        <div className="dark">
-          <TableCodes />
-        </div>
+        <div className="dark">{/* <TableCodes /> */}</div>
       </div>
     </DashboardLayout>
   );
