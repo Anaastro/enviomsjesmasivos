@@ -7,6 +7,7 @@ import TableUsers from "@/components/Dashboard/TableUsers";
 import nookies from "nookies";
 import { GetServerSidePropsContext } from "next";
 import { auth } from "@/config/firebaseAdmin";
+import { cookies } from "next/headers";
 
 interface Code {
   id: string;
@@ -49,6 +50,9 @@ interface Code {
 
 const DashboardPage = ({ users }: { users: any }) => {
   // console.log(users, "users");
+  // const cookiesStore = cookies
+  // console.log(cookiesStore, "cookiesStore");
+  // console.log(cookies);
 
   const handleGenerateCode = async () => {
     await generateCode();
