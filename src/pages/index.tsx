@@ -64,13 +64,13 @@ const Home: React.FC = (props) => {
                 rol: "",
               });
             }
-            const result = await fetch("/api/setCustomUserClaims", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ uid }),
-            });
+            // const result = await fetch("/api/setCustomUserClaims", {
+            //   method: "POST",
+            //   headers: { "Content-Type": "application/json" },
+            //   body: JSON.stringify({ uid }),
+            // });
 
-            return await result.json();
+            // return await result.json();
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
