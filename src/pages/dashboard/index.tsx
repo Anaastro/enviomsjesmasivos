@@ -3,33 +3,33 @@ import { auth } from "@/config/firebaseAdmin";
 import { GetServerSidePropsContext } from "next";
 import nookies from "nookies";
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  try {
-    // const cookies = nookies.get(ctx);
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   try {
+//     const cookies = nookies.get(ctx);
 
-    // const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
-    // const isAdmin = verifiedIdTokenResult.admin;
+//     const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
+//     const isAdmin = verifiedIdTokenResult.admin;
 
-    // if (!isAdmin) {
-    //   ctx.res.writeHead(302, { Location: "/" });
-    //   ctx.res.end();
-    // }
+//     if (!isAdmin) {
+//       ctx.res.writeHead(302, { Location: "/" });
+//       ctx.res.end();
+//     }
 
-    const test = { test: true };
+//     const test = { test: true };
 
-    return {
-      props: {
-        ...test,
-      },
-    };
-  } catch (err) {
-    ctx.res.writeHead(302, { Location: "/" });
-    ctx.res.end();
-    return {
-      props: {} as never,
-    };
-  }
-};
+//     return {
+//       props: {
+//         ...test,
+//       },
+//     };
+//   } catch (err) {
+//     ctx.res.writeHead(302, { Location: "/" });
+//     ctx.res.end();
+//     return {
+//       props: {} as never,
+//     };
+//   }
+// };
 
 const DashboardPage = () => {
   return (
