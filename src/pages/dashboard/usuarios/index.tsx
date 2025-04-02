@@ -57,15 +57,15 @@ const DashboardPage = ({ users }: { users: any }) => {
   };
 
   return (
-    // <DashboardLayout>
-    <div className="flex flex-col w-full">
-      <div className="flex justify-between items-center mb-5">
-        <h1 className="text-2xl font-bold">Usuarios</h1>
-      </div>
+    <DashboardLayout>
+      <div className="flex flex-col w-full">
+        <div className="flex justify-between items-center mb-5">
+          <h1 className="text-2xl font-bold">Usuarios</h1>
+        </div>
 
-      <div className="dark">{/* <TableUsers /> */}</div>
-    </div>
-    // </DashboardLayout>
+        <div className="dark">{/* <TableUsers /> */}</div>
+      </div>
+    </DashboardLayout>
   );
 };
 
