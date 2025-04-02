@@ -17,27 +17,27 @@ interface Code {
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   try {
-    const cookies = nookies.get(ctx);
+    // const cookies = nookies.get(ctx);
 
-    const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
-    const isAdmin = verifiedIdTokenResult.admin;
+    // const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
+    // const isAdmin = verifiedIdTokenResult.admin;
 
-    if (!isAdmin) {
-      ctx.res.writeHead(302, { Location: "/" });
-      ctx.res.end();
-    }
+    // if (!isAdmin) {
+    //   ctx.res.writeHead(302, { Location: "/" });
+    //   ctx.res.end();
+    // }
 
-    //  Desde aqui se llama a la base de datos para obtener los usuarios
+    // const listUsersResult = await auth.listUsers();
+    // const users = listUsersResult.users.map((userRecord) => ({
+    //   uid: userRecord.uid,
+    //   email: userRecord.email,
+    // }));
 
-    const listUsersResult = await auth.listUsers();
-    const users = listUsersResult.users.map((userRecord) => ({
-      uid: userRecord.uid,
-      email: userRecord.email,
-    }));
+    const users: any = [];
 
     return {
       props: {
-        users,
+        users: users,
       },
     };
   } catch (err) {
