@@ -19,73 +19,73 @@ interface User {
 }
 
 const Home: React.FC = () => {
-  // const [isConfigOpen, setIsConfigOpen] = useState<boolean>(false);
-  // const { userLoggedIn, setUserLoggedIn, errorLoggedIn } =
-  //   useContext(LoggedContext);
-  // const [user, setUser] = useState<User | null>(null);
-  // const { instanceId, setInstanceId } = useContext(UserContext);
+  const [isConfigOpen, setIsConfigOpen] = useState<boolean>(false);
+  const { userLoggedIn, setUserLoggedIn, errorLoggedIn } =
+    useContext(LoggedContext);
+  const [user, setUser] = useState<User | null>(null);
+  const { instanceId, setInstanceId } = useContext(UserContext);
 
   const auth = getAuth(app);
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-  //     if (currentUser) {
-  //       setUserLoggedIn(true);
-  //       setIsConfigOpen(false);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUserLoggedIn(true);
+        setIsConfigOpen(false);
 
-  //       const token = await currentUser.getIdToken();
+        const token = await currentUser.getIdToken();
 
-  //       nookies.set(undefined, "token", token, { path: "/" });
-  //       const uid = currentUser.uid;
+        nookies.set(undefined, "token", token, { path: "/" });
+        const uid = currentUser.uid;
 
-  //       const userRef = doc(database, "users", uid);
-  //       const isMounted = { value: true };
+        const userRef = doc(database, "users", uid);
+        const isMounted = { value: true };
 
-  //       try {
-  //         const userRaw = await getDoc(userRef);
-  //         const userAuth = await UserService.fetchUser(uid);
+        try {
+          const userRaw = await getDoc(userRef);
+          const userAuth = await UserService.fetchUser(uid);
 
-  //         if (isMounted.value) {
-  //           if (userRaw.exists()) {
-  //             const userData = userRaw.data();
-  //             const userRol = userData.rol || "user";
+          if (isMounted.value) {
+            if (userRaw.exists()) {
+              const userData = userRaw.data();
+              const userRol = userData.rol || "user";
 
-  //             setUser({
-  //               email: userAuth?.email || userData.email,
-  //               rol: userRol,
-  //             });
+              setUser({
+                email: userAuth?.email || userData.email,
+                rol: userRol,
+              });
 
-  //             if (userRol !== "admin") {
-  //               setInstanceId(userData.instanceId);
-  //             }
-  //           } else {
-  //             setUser({
-  //               email: userAuth?.email || "",
-  //               rol: "",
-  //             });
-  //           }
-  //           const result = await fetch("/api/setCustomUserClaims", {
-  //             method: "POST",
-  //             headers: { "Content-Type": "application/json" },
-  //             body: JSON.stringify({ uid }),
-  //           });
+              if (userRol !== "admin") {
+                setInstanceId(userData.instanceId);
+              }
+            } else {
+              setUser({
+                email: userAuth?.email || "",
+                rol: "",
+              });
+            }
+            const result = await fetch("/api/setCustomUserClaims", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ uid }),
+            });
 
-  //           return await result.json();
-  //         }
-  //       } catch (error) {
-  //         console.error("Error fetching user data:", error);
-  //       }
-  //     } else {
-  //       nookies.set(undefined, "token", "", { path: "/" });
-  //       setUserLoggedIn(false);
-  //       setUser(null);
-  //     }
-  //   });
+            return await result.json();
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      } else {
+        nookies.set(undefined, "token", "", { path: "/" });
+        setUserLoggedIn(false);
+        setUser(null);
+      }
+    });
 
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [auth, setUserLoggedIn, setInstanceId]);
+    return () => {
+      unsubscribe();
+    };
+  }, [auth, setUserLoggedIn, setInstanceId]);
 
   const handleSignOut = async () => {
     try {
@@ -104,16 +104,16 @@ const Home: React.FC = () => {
     }
   };
 
-  // const handleSignIn = ({ email, rol }: User) => {
-  //   if (errorLoggedIn) return;
-  //   setUserLoggedIn(true);
-  //   setIsConfigOpen(false);
-  //   if (!rol) {
-  //     setUser({ email, rol: "user" });
-  //     return;
-  //   }
-  //   setUser({ email, rol });
-  // };
+  const handleSignIn = ({ email, rol }: User) => {
+    if (errorLoggedIn) return;
+    setUserLoggedIn(true);
+    setIsConfigOpen(false);
+    if (!rol) {
+      setUser({ email, rol: "user" });
+      return;
+    }
+    setUser({ email, rol });
+  };
 
   return (
     <>
@@ -136,7 +136,7 @@ const Home: React.FC = () => {
             className="w-60 h-60 animate-pulse"
           />
         </div>
-        {/* 
+
         {!isConfigOpen && !userLoggedIn && (
           <>
             <motion.button
@@ -155,8 +155,8 @@ const Home: React.FC = () => {
             onSignIn={handleSignIn}
             onSignOut={handleSignOut}
           />
-        )} */}
-        {/* {userLoggedIn && user && !instanceId && user.rol !== "admin" && (
+        )}
+        {userLoggedIn && user && !instanceId && user.rol !== "admin" && (
           <div className="bg-white p-4 rounded-lg shadow-lg">
             <p>No se le asigno una instancia. Intentelo mas tarde</p>
           </div>
@@ -184,7 +184,7 @@ const Home: React.FC = () => {
               signOut={handleSignOut}
             />
           </>
-        )} */}
+        )}
       </div>
     </>
   );
