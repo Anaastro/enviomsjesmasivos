@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.6.11",
+    "@tanstack/virtual-core": "^3.13.6",
     "@types/react-phone-number-input": "^3.1.37",
     "axios": "^1.7.7",
     "baileys": "^6.7.13",
