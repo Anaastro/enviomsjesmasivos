@@ -11,7 +11,7 @@ import ListPhoneNumbers from "@/components/Login/ListPhoneNumbers";
 import ParticlesBackgroud from "@/components/ParticlesBackground";
 import { doc, getDoc } from "firebase/firestore";
 import UserService from "@/services/userService";
-import nookies from "nookies";
+// import nookies from "nookies";
 
 interface User {
   email: string;
@@ -35,7 +35,7 @@ const Home: React.FC = (props) => {
 
         const token = await currentUser.getIdToken();
 
-        nookies.set(undefined, "token", token, { path: "/" });
+        // nookies.set(undefined, "token", token, { path: "/" });
         const uid = currentUser.uid;
 
         const userRef = doc(database, "users", uid);
@@ -76,7 +76,7 @@ const Home: React.FC = (props) => {
           console.error("Error fetching user data:", error);
         }
       } else {
-        nookies.set(undefined, "token", "", { path: "/" });
+        // nookies.set(undefined, "token", "", { path: "/" });
         setUserLoggedIn(false);
         setUser(null);
       }
