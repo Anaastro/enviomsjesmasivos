@@ -16,36 +16,36 @@ interface Code {
   createdAt: Date;
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  try {
-    // const cookies = nookies.get(ctx);
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   try {
+//     const cookies = nookies.get(ctx);
 
-    // const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
-    // const isAdmin = verifiedIdTokenResult.admin;
+//     const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
+//     const isAdmin = verifiedIdTokenResult.admin;
 
-    // if (!isAdmin) {
-    //   ctx.res.writeHead(302, { Location: "/" });
-    //   ctx.res.end();
-    // }
+//     if (!isAdmin) {
+//       ctx.res.writeHead(302, { Location: "/" });
+//       ctx.res.end();
+//     }
 
-    // const listUsersResult = await auth.listUsers();
-    // const users = listUsersResult.users.map((userRecord) => ({
-    //   uid: userRecord.uid,
-    //   email: userRecord.email,
-    // }));
-    const users: any = [];
+//     const listUsersResult = await auth.listUsers();
+//     const users = listUsersResult.users.map((userRecord) => ({
+//       uid: userRecord.uid,
+//       email: userRecord.email,
+//     }));
+//     // const users: any = [];
 
-    return {
-      props: {
-        users: users,
-      },
-    };
-  } catch (err) {
-    return {
-      props: {} as never,
-    };
-  }
-};
+//     return {
+//       props: {
+//         users: users,
+//       },
+//     };
+//   } catch (err) {
+//     return {
+//       props: {} as never,
+//     };
+//   }
+// };
 
 const DashboardPage = ({ users }: { users: any }) => {
   console.log(users, "users");
