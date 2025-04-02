@@ -12,44 +12,13 @@ import ParticlesBackgroud from "@/components/ParticlesBackground";
 import { doc, getDoc } from "firebase/firestore";
 import UserService from "@/services/userService";
 import nookies from "nookies";
-import { GetServerSidePropsContext } from "next";
 
 interface User {
   email: string;
   rol: string;
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  try {
-    // const cookies = nookies.get(ctx);
-
-    // const verifiedIdTokenResult = await auth.verifyIdToken(cookies.token);
-    // const isAdmin = verifiedIdTokenResult.admin;
-
-    // if (!isAdmin) {
-    //   ctx.res.writeHead(302, { Location: "/" });
-    //   ctx.res.end();
-    // }
-
-    const test = { test: true };
-
-    return {
-      props: {
-        ...test,
-      },
-    };
-  } catch (err) {
-    // ctx.res.writeHead(302, { Location: "/" });
-    // ctx.res.end();
-    return {
-      props: {} as never,
-    };
-  }
-};
-
 const Home: React.FC = (props) => {
-  console.log(props, "props");
-
   const [isConfigOpen, setIsConfigOpen] = useState<boolean>(false);
   const { userLoggedIn, setUserLoggedIn, errorLoggedIn } =
     useContext(LoggedContext);
