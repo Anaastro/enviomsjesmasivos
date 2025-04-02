@@ -33,15 +33,15 @@ import nookies from "nookies";
 
 const DashboardPage = () => {
   return (
-    <DashboardLayout>
-      <div className="flex flex-col w-full">
-        <div className="flex justify-between items-center mb-5 px-10">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-        </div>
-
-        <div className="dark"></div>
+    // <DashboardLayout>
+    <div className="flex flex-col w-full">
+      <div className="flex justify-between items-center mb-5 px-10">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
       </div>
-    </DashboardLayout>
+
+      <div className="dark"></div>
+    </div>
+    // </DashboardLayout>
   );
 };
 
