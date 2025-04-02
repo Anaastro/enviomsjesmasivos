@@ -65,7 +65,9 @@ const DashboardPage = ({ users }: { users: any }) => {
           <h1 className="text-2xl font-bold">Usuarios</h1>
         </div>
 
-        <div className="dark">{/* <TableUsers /> */}</div>
+        <div className="dark">
+          <TableUsers />
+        </div>
       </div>
     </DashboardLayout>
   );
